@@ -46,6 +46,7 @@
   cursor: none;
   margin: 0 1rem;
   transition: ease-in-out 300ms;
+  font-size: clamp(0.9375rem, 0.8036rem + 0.4286vw, 1.125rem);
 }
 
 .sec:hover {

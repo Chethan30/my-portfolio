@@ -12,6 +12,7 @@ import SkillCardFrontend from "./components/Card/SkillCardFrontend";
 import SkillCardBackend from "./components/Card/SkillCardBackend";
 import SkillCardDevops from "./components/Card/SkillCardDevops";
 import ExpTimeline from "./components/Experience/ExpTimeline";
+import StarBackgroundCanvas from "./components/StarBackground";
 
 function App() {
   const [pageActive, setPageActve] = useState(false);
@@ -97,6 +98,7 @@ function App() {
 
   return (
     <div className="App">
+      <StarBackgroundCanvas />
       <div className="navbar">
         <Navbar showLinks={pageActive} />
       </div>
@@ -185,6 +187,8 @@ function App() {
         <i className="cursor-icon">🚀</i>
       </div>
       <div className="trailer"></div>
+
+      {/* <Background /> */}
     </div>
   );
 }

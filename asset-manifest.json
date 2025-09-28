@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/static/css/main.664318ea.css",
-    "main.js": "/static/js/main.cdc10f34.js",
-    "static/js/787.2dcca737.chunk.js": "/static/js/787.2dcca737.chunk.js",
-    "static/media/gvr_3.png": "/static/media/gvr_3.3fbcb800eda7812bf4f0.png",
-    "static/media/gvr_4.png": "/static/media/gvr_4.38c0f1559204812741f6.png",
-    "static/media/secret_sound_2.mp3": "/static/media/secret_sound_2.746874d3c640cf7e9cc3.mp3",
-    "static/media/gvr_2.png": "/static/media/gvr_2.819f5d0767db1663be94.png",
-    "static/media/gvr_1.png": "/static/media/gvr_1.99d45fecd050e3cdb387.png",
-    "static/media/dw_1.png": "/static/media/dw_1.5ad657904d670f8e8da1.png",
-    "static/media/dw_2.png": "/static/media/dw_2.221b56120cbd3f22098b.png",
-    "static/media/chethan-logo-white.png": "/static/media/chethan-logo-white.42797d06c66e3c0fa88b.png",
-    "static/media/secret_sound.mp3": "/static/media/secret_sound.0357080ab5e9bb88ae14.mp3",
-    "static/media/dw_3.png": "/static/media/dw_3.e0072fb4d876d35414e1.png",
-    "index.html": "/index.html",
-    "main.664318ea.css.map": "/static/css/main.664318ea.css.map",
-    "main.cdc10f34.js.map": "/static/js/main.cdc10f34.js.map",
-    "787.2dcca737.chunk.js.map": "/static/js/787.2dcca737.chunk.js.map"
+    "main.css": "/my-portfolio/static/css/main.664318ea.css",
+    "main.js": "/my-portfolio/static/js/main.8a732f59.js",
+    "static/js/787.2dcca737.chunk.js": "/my-portfolio/static/js/787.2dcca737.chunk.js",
+    "static/media/gvr_3.png": "/my-portfolio/static/media/gvr_3.3fbcb800eda7812bf4f0.png",
+    "static/media/gvr_4.png": "/my-portfolio/static/media/gvr_4.38c0f1559204812741f6.png",
+    "static/media/secret_sound_2.mp3": "/my-portfolio/static/media/secret_sound_2.746874d3c640cf7e9cc3.mp3",
+    "static/media/gvr_2.png": "/my-portfolio/static/media/gvr_2.819f5d0767db1663be94.png",
+    "static/media/gvr_1.png": "/my-portfolio/static/media/gvr_1.99d45fecd050e3cdb387.png",
+    "static/media/dw_1.png": "/my-portfolio/static/media/dw_1.5ad657904d670f8e8da1.png",
+    "static/media/dw_2.png": "/my-portfolio/static/media/dw_2.221b56120cbd3f22098b.png",
+    "static/media/chethan-logo-white.png": "/my-portfolio/static/media/chethan-logo-white.42797d06c66e3c0fa88b.png",
+    "static/media/secret_sound.mp3": "/my-portfolio/static/media/secret_sound.0357080ab5e9bb88ae14.mp3",
+    "static/media/dw_3.png": "/my-portfolio/static/media/dw_3.e0072fb4d876d35414e1.png",
+    "index.html": "/my-portfolio/index.html",
+    "main.664318ea.css.map": "/my-portfolio/static/css/main.664318ea.css.map",
+    "main.8a732f59.js.map": "/my-portfolio/static/js/main.8a732f59.js.map",
+    "787.2dcca737.chunk.js.map": "/my-portfolio/static/js/787.2dcca737.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.664318ea.css",
-    "static/js/main.cdc10f34.js"
+    "static/js/main.8a732f59.js"
   ]
 }

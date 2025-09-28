@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./Work.css";
 import backButton from "../../assets/backButton.png";
 import TechHolder from "../../components/Card/TechHolder";

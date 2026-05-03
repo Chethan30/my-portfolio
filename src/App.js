@@ -4,6 +4,7 @@ import Card from "./components/Card/Card";
 import Footer from "./components/Footer/Footer";
 import Intro from "./components/Introduction/Intro";
 import Navbar from "./components/NavBar/Navbar";
+import Starfield from "./components/Introduction/Starfield";
 import secretAudio from "./assets/secret_sound_2.mp3";
 import Work from "./pages/Work/Work";
 import { projects } from "./store/Store";
@@ -60,14 +61,14 @@ function App() {
     let cards = document.querySelectorAll(".card");
     let logo = document.querySelector(".nav-logo");
 
-    logo.addEventListener("mouseover", (e) => {
-      console.log("over and out!");
-      document.querySelector(".secret-audio2").play();
-    });
-    logo.addEventListener("mouseleave", (e) => {
-      console.log("over and out!");
-      document.querySelector(".secret-audio2").pause();
-    });
+    // logo.addEventListener("mouseover", (e) => {
+    //   console.log("over and out!");
+    //   document.querySelector(".secret-audio2").play();
+    // });
+    // logo.addEventListener("mouseleave", (e) => {
+    //   console.log("over and out!");
+    //   document.querySelector(".secret-audio2").pause();
+    // });
 
     mouseFollower(cursor, trailer);
     mouseGlow(links, cursor, trailer);
@@ -88,16 +89,30 @@ function App() {
     });
   }, [pageActive]);
 
-  // const openOld = () => {
-  //   window.open(
-  //     "https://chethan30.github.io/my-portfolio.github.io/",
-  //     "_blank"
-  //   );
-  // };
+  const openOld = () => {
+    window.open(
+      "https://chethan30.github.io/my-portfolio.github.io/",
+      "_blank"
+    );
+  };
 
   return (
     <div className="App">
-      <div className="navbar">
+      <Starfield />
+      <div className="hud-corner hud-tl">
+        <span className="hud-label">MISSION CONTROL // ONLINE</span>
+        <span className="hud-coords">LOGGED IN AS · CBN-7734</span>
+      </div>
+      <div className="hud-corner hud-br">
+        <span className="hud-label">SECTOR: ENGINEERING</span>
+        <span className="hud-coords">CLEARANCE: FULL ACCESS</span>
+      </div>
+      <div
+        className="navbar"
+        style={{
+          border: "1px solid red",
+        }}
+      >
         <Navbar showLinks={pageActive} />
       </div>
       {!pageActive && (
@@ -116,8 +131,17 @@ function App() {
 
             {/* <---------- Experience -----------> */}
             <div className="experience-container" id="experience">
-              <div className="heading">Experience</div>
-              <ExpTimeline />
+              <div className="experience-hud-card">
+                <span className="sec-corner tl" aria-hidden="true" />
+                <span className="sec-corner tr" aria-hidden="true" />
+                <span className="sec-corner bl" aria-hidden="true" />
+                <span className="sec-corner br" aria-hidden="true" />
+                <div className="tick-strip" aria-hidden="true" />
+                <div className="heading experience-hud-heading">
+                  Mission log · Experience
+                </div>
+                <ExpTimeline />
+              </div>
             </div>
 
             {/* <---------- Projects -----------> */}

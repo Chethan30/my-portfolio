@@ -11,24 +11,50 @@ function MyIntro() {
 
   return (
     <div className="myinrto-container">
+
+      <div className="login-status">
+        <span className="status-dot" />
+        <span className="status-text">SESSION ESTABLISHED · OPERATOR PROFILE LOADED</span>
+      </div>
+
       <h1 className="myintro-text">
-        Hi, I am <span className="magic">Chethan Birur Nataraja</span>.
+        <span className="intro-prefix">OPERATOR // </span>
+        <span className="magic">Chethan Birur Nataraja</span>
       </h1>
-      <h3 className="myintro-text myintro-sub">
-        Jack of all trades. Some of the cards i've previously dealt with
-        include, <span className="magic-blue">Software</span>
-        {" , "}
-        <span className="magic-blue">Interface</span>, and{" "}
-        <span className="magic-blue">Platform</span> Engineer.
-      </h3>
-      <p className=" myintro-text myintro-con">
-        I passionately delve into the realms of simplicity, scalability, cloud
-        infrastructure, streamlined pipelines, and agile configurations.
+
+      <div className="role-block">
+        <div className="role-row current">
+          <span className="field-label">ROLE ›</span>
+          <span className="magic-blue">Software Engineer II</span>
+          <span className="role-tag">AI SYSTEMS</span>
+        </div>
+        <div className="role-row past">
+          <span className="field-label">PREV ›</span>
+          <span className="role-past-value">
+            <span className="role-past">Software</span>
+            {" · "}
+            <span className="role-past">Interface</span>
+            {" · "}
+            <span className="role-past">Platform</span>
+            {" Engineer"}
+          </span>
+        </div>
+      </div>
+
+      <p className="myintro-text myintro-con">
+        <span className="intro-comment">{"// BRIEFING  "}</span>
+        Navigates simplicity, scalability, cloud infrastructure, streamlined
+        pipelines, and agile configurations. Jack of all trades.
       </p>
-      {/* <h3>A cutting-edge software engineer currently at <a href="https://www.veryableops.com/">Veryable Inc.</a>, passionately delving into the realms of scalability, cloud infrastructure, streamlined pipelines, and agile configurations.</h3> */}
+
       <button className="fancyButton" onClick={openResumeHandler}>
-        <span className="magic">Resume</span>
+        <span className="btn-corner tl" />
+        <span className="btn-corner tr" />
+        <span className="btn-corner bl" />
+        <span className="btn-corner br" />
+        <span className="magic">ACCESS DOSSIER</span>
       </button>
+
     </div>
   );
 }

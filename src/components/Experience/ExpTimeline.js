@@ -6,37 +6,85 @@ import {
 import "react-vertical-timeline-component/style.min.css";
 import "./ExpTimeline.css";
 import { GrCertificate } from "react-icons/gr";
-import { SiAwsorganizations } from "react-icons/si";
-import { MdDeveloperBoard } from "react-icons/md";
+import { SiAwsorganizations, SiReact } from "react-icons/si";
+import {
+  MdDeveloperBoard,
+  MdLocationOn,
+  MdOutlineSettingsRemote,
+  MdSmartToy,
+} from "react-icons/md";
 import { CgOrganisation } from "react-icons/cg";
-import { MdLocationOn } from "react-icons/md";
-import { MdOutlineSettingsRemote } from "react-icons/md";
 
 const ExpTimeline = () => {
-  const iconStyle = { background: "#000", color: "#fff" };
-  const cardContentCtyle = {
-    background: "#000",
-    color: "#fff",
-    border: "2px solid rgba(128, 128, 128, 0.454)",
+  const iconStyle = {
+    background: "rgba(0, 0, 0, 0.88)",
+    color: "rgba(255, 200, 80, 0.95)",
+    boxShadow: "0 0 0 1px rgba(255, 200, 80, 0.35)",
+    border: "none",
+  };
+  const cardContentStyle = {
+    background: "rgba(0, 0, 0, 0.45)",
+    color: "#e8eeff",
+    border: "1px solid rgba(255, 200, 80, 0.22)",
     boxShadow: "none",
+    backdropFilter: "blur(6px)",
   };
   const cardArrowStyle = {
-    borderRight: "7px solid rgba(128, 128, 128, 0.454)",
+    borderRight: "7px solid rgba(255, 200, 80, 0.22)",
   };
 
   return (
-    <div>
+    <div className="exp-timeline-root">
       <VerticalTimeline>
         <VerticalTimelineElement
-          className="vertical-timeline-element--work test"
-          contentStyle={cardContentCtyle}
+          className="vertical-timeline-element--work"
+          contentStyle={cardContentStyle}
           contentArrowStyle={cardArrowStyle}
-          date="May 2023 - Jan 2024"
-          dateClassName="what is this"
+          date="Sep 2024 — Present"
+          iconStyle={iconStyle}
+          icon={<MdSmartToy />}
+        >
+          <h3 className="vertical-timeline-element-title">
+            Software Engineer II (AI Systems)
+          </h3>
+          <h4 className="vertical-timeline-element-subtitle">
+            <CgOrganisation className="content-icon" /> Iron Mountain{" "}
+            <MdLocationOn className="content-icon" /> Tampa Bay, FL
+          </h4>
+          <p>
+            AI/ML, Semantic Search Engine, Agentic Workflows and Frameworks,
+            RAG, Golang, Systems Design, React, TypeScript, Python
+          </p>
+        </VerticalTimelineElement>
+        <VerticalTimelineElement
+          className="vertical-timeline-element--work"
+          contentStyle={cardContentStyle}
+          contentArrowStyle={cardArrowStyle}
+          date="Jul 2024 — Aug 2024"
+          iconStyle={iconStyle}
+          icon={<SiReact />}
+        >
+          <h3 className="vertical-timeline-element-title">
+            Software Engineer (Fullstack)
+          </h3>
+          <h4 className="vertical-timeline-element-subtitle">
+            <CgOrganisation className="content-icon" /> Meta Jungle{" "}
+            <MdLocationOn className="content-icon" /> Ozark, MO
+          </h4>
+          <p>
+            React, TypeScript, Python, AWS, Jenkins, Webpack, Node.js, NFTs,
+            Crypto
+          </p>
+        </VerticalTimelineElement>
+        <VerticalTimelineElement
+          className="vertical-timeline-element--work"
+          contentStyle={cardContentStyle}
+          contentArrowStyle={cardArrowStyle}
+          date="May 2023 — Jan 2024"
           iconStyle={iconStyle}
           icon={<SiAwsorganizations />}
         >
-          <h3 className="vertical-timeline-element-title">Sofwatre Engineer</h3>
+          <h3 className="vertical-timeline-element-title">Software Engineer</h3>
           <h4 className="vertical-timeline-element-subtitle">
             <CgOrganisation className="content-icon" /> Veryable Inc{" "}
             <MdLocationOn className="content-icon" /> Dallas, TX
@@ -48,9 +96,9 @@ const ExpTimeline = () => {
         </VerticalTimelineElement>
         <VerticalTimelineElement
           className="vertical-timeline-element--work"
-          contentStyle={cardContentCtyle}
+          contentStyle={cardContentStyle}
           contentArrowStyle={cardArrowStyle}
-          date="Aug 2022 - May 2024"
+          date="Aug 2022 — May 2024"
           iconStyle={iconStyle}
           icon={<GrCertificate />}
         >
@@ -60,6 +108,8 @@ const ExpTimeline = () => {
           <h4 className="vertical-timeline-element-subtitle">
             <CgOrganisation className="content-icon" />
             University of Texas at Dallas
+            <MdLocationOn className="content-icon" />
+            Richardson, TX
           </h4>
           <p>
             Machine Learning, Deep Learning, LLM, Computer Vision, Natural
@@ -68,9 +118,9 @@ const ExpTimeline = () => {
         </VerticalTimelineElement>
         <VerticalTimelineElement
           className="vertical-timeline-element--work"
-          contentStyle={cardContentCtyle}
+          contentStyle={cardContentStyle}
           contentArrowStyle={cardArrowStyle}
-          date="Jul 2021 - Jan 2022"
+          date="Jul 2021 — Jan 2022"
           iconStyle={iconStyle}
           icon={<MdDeveloperBoard />}
         >
@@ -88,9 +138,9 @@ const ExpTimeline = () => {
         </VerticalTimelineElement>
         <VerticalTimelineElement
           className="vertical-timeline-element--work"
-          contentStyle={cardContentCtyle}
+          contentStyle={cardContentStyle}
           contentArrowStyle={cardArrowStyle}
-          date="May 2018 - Aug 2022"
+          date="May 2018 — Aug 2022"
           iconStyle={iconStyle}
           icon={<GrCertificate />}
         >
@@ -100,6 +150,8 @@ const ExpTimeline = () => {
           <h4 className="vertical-timeline-element-subtitle">
             <CgOrganisation className="content-icon" />
             Dayananda Sagar College of Engineering
+            <MdLocationOn className="content-icon" />
+            Bengaluru, IN
           </h4>
           <p>AI/ML, Web Engineer, Logic Design</p>
         </VerticalTimelineElement>

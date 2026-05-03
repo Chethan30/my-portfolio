@@ -1,42 +1,128 @@
-.vertical-timeline-element:hover > .vertical-timeline-element-content {
-  background-color: rgba(128, 128, 128, 0.454) !important;
-  transform: scale(1.05) !important;
-  transition: ease-in-out 0.3s !important;
-  border: 2px solid white !important;
+/* ─── Experience timeline · HUD theme (scoped to .experience-hud-card) ─── */
+
+.experience-hud-card .exp-timeline-root {
+  position: relative;
+  z-index: 1;
 }
 
-.vertical-timeline-element:hover > .vertical-timeline-element-icon {
+/* Vertical spine */
+.experience-hud-card .vertical-timeline::before {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 200, 80, 0.08) 0%,
+    rgba(255, 200, 80, 0.28) 15%,
+    rgba(120, 180, 255, 0.2) 50%,
+    rgba(255, 200, 80, 0.28) 85%,
+    rgba(255, 200, 80, 0.08) 100%
+  ) !important;
+  width: 2px !important;
+}
+
+/* Date stamps — telemetry readout */
+.experience-hud-card .vertical-timeline-element-date {
+  color: rgba(140, 175, 220, 0.75) !important;
+  font-size: 0.65rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+}
+
+/* Card surface (inline styles + library defaults) */
+.experience-hud-card .vertical-timeline-element-content {
+  border-radius: 3px !important;
+  box-shadow: none !important;
+}
+
+.experience-hud-card .vertical-timeline-element-content:hover {
+  border-color: rgba(255, 210, 80, 0.45) !important;
+  background: rgba(0, 0, 0, 0.55) !important;
+  transform: none !important;
+  box-shadow: 0 0 0 1px rgba(255, 200, 80, 0.12), 0 0 24px rgba(255, 200, 60, 0.08) !important;
+}
+
+/* Arrow triangles — match card border */
+.experience-hud-card .vertical-timeline-element-content-arrow {
+  border-right-color: rgba(255, 200, 80, 0.22) !important;
+}
+
+/* Icon nodes */
+.experience-hud-card .vertical-timeline-element-icon {
+  box-shadow: 0 0 0 1px rgba(255, 200, 80, 0.35), 0 0 12px rgba(255, 200, 60, 0.12) !important;
+}
+
+.experience-hud-card .vertical-timeline-element-icon svg {
+  filter: drop-shadow(0 0 4px rgba(255, 200, 80, 0.35));
+}
+
+.experience-hud-card .vertical-timeline-element:hover > .vertical-timeline-element-icon {
   border: none !important;
-  scale: 1.2 !important;
-  color: rgba(255, 253, 162, 0.8) !important;
-  transition: ease-in-out 0.3s !important;
+  transform: scale(1.08) !important;
+  color: rgba(255, 230, 120, 1) !important;
+  box-shadow: 0 0 0 1px rgba(255, 220, 100, 0.55), 0 0 16px rgba(255, 200, 60, 0.2) !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.25s ease !important;
 }
 
-.vertical-timeline-element:hover .vertical-timeline-element-title {
-  color: rgba(255, 253, 162, 0.8) !important;
-  transition: ease-in-out 0.3s !important;
+/* Titles */
+.experience-hud-card .vertical-timeline-element-title {
+  color: #e8eeff !important;
+  font-size: clamp(1rem, 1.4vw, 1.15rem) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  margin-bottom: 0.65rem !important;
 }
 
-.vertical-timeline-element-title {
-  margin-bottom: 1rem !important;
+.experience-hud-card .vertical-timeline-element:hover .vertical-timeline-element-title {
+  color: rgba(255, 230, 140, 0.95) !important;
 }
 
-.vertical-timeline-element-subtitle {
+/* Subtitle / org + location row — flex keeps icon baseline aligned with text */
+.experience-hud-card .vertical-timeline-element-subtitle {
   display: flex !important;
   flex-wrap: wrap !important;
   align-items: center !important;
-  gap: 10px !important;
-  margin-bottom: 1rem !important;
+  justify-content: flex-start !important;
+  gap: 0.4rem 0.65rem !important;
 
-  font-weight: 400 !important;
-  font-size: small !important;
+  margin: 0 0 0.85rem !important;
+  padding: 0 !important;
+  min-height: 1.35em !important;
+
+  color: rgba(170, 200, 235, 0.88) !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  line-height: 1.45 !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
 }
 
-.content-icon {
-  color: grey !important;
+.experience-hud-card .vertical-timeline-element-subtitle .content-icon {
+  flex-shrink: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 1em !important;
+  height: 1em !important;
+  margin: 0 !important;
+  transform: translateY(0.5px);
 }
 
-.vertical-timeline-element-content > p {
-  font-size: small !important;
-  font-weight: 100 !important;
+.experience-hud-card .content-icon {
+  color: rgba(255, 200, 80, 0.5) !important;
+}
+
+/* Body / stack tags */
+.experience-hud-card .vertical-timeline-element-content > p {
+  color: rgba(155, 185, 220, 0.78) !important;
+  font-size: 0.78rem !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.05em !important;
+  line-height: 1.65 !important;
+  text-transform: uppercase !important;
+}
+
+/* Remove old hover scale / grey flash */
+.experience-hud-card .vertical-timeline-element:hover > .vertical-timeline-element-content {
+  transform: none !important;
+  transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease !important;
 }

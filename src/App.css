@@ -14,8 +14,8 @@
 }
 
 .appContainer {
-  /* border: 2px solid red; */
-  max-width: 80%;
+  width: 100%;
+  max-width: min(1240px, 92%);
   height: 100%;
 }
 
@@ -50,14 +50,16 @@
 }
 
 .content2 {
-  margin-top: 15vh;
+  margin-top: 10vh;
   margin-bottom: 20vh;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding-inline: clamp(12px, 4vw, 32px);
 
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  /* border: 2px solid yellow; */
 }
 
 .card-container {
@@ -223,13 +225,86 @@
   padding: 1rem 2rem;
 } */
 .experience-container {
-  padding: 1rem 2rem;
+  padding: 0 0 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.experience-container > .heading {
-  margin-bottom: 2rem;
-  margin-top: 4rem;
-  text-align: center;
+/* HUD panel — matches intro hero surface */
+.experience-hud-card {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: min(1180px, 100%);
+  margin-inline: auto;
+  padding: clamp(1.25rem, 3vw, 2rem) clamp(1.25rem, 3.5vw, 2.5rem)
+    clamp(2rem, 3.5vw, 2.75rem);
+
+  border: 1px solid rgba(255, 200, 80, 0.12);
+  border-radius: 4px;
+
+  background-image:
+    radial-gradient(ellipse at 20% 20%, rgba(40, 30, 5, 0.35) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 70%, rgba(10, 25, 55, 0.35) 0%, transparent 55%),
+    radial-gradient(rgba(255, 200, 60, 0.06) 1px, transparent 1px);
+  background-size: auto, auto, clamp(20px, 4vw, 28px) clamp(20px, 4vw, 28px);
+  background-position: center, center, 0 0;
+}
+
+.experience-hud-card:hover .sec-corner {
+  width: 20px;
+  height: 20px;
+  border-color: rgba(255, 215, 80, 0.85);
+}
+
+.experience-hud-card .experience-hud-heading {
+  margin: 0 0 1.5rem !important;
+  padding: 0 0 0.65rem 0 !important;
+  text-align: left;
+  font-size: clamp(0.62rem, 1.1vw, 0.72rem) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase;
+  color: rgba(255, 200, 60, 0.72) !important;
+  border-bottom: 1px solid rgba(255, 200, 80, 0.12);
+}
+
+/* ---- Global HUD corner labels ---- */
+.hud-corner {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  z-index: 999;
+  pointer-events: none;
+}
+
+.hud-tl {
+  top: 14px;
+  left: 18px;
+}
+
+.hud-br {
+  bottom: 14px;
+  right: 18px;
+  align-items: flex-end;
+}
+
+.hud-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 200, 60, 0.55);
+  font-family: monospace;
+}
+
+.hud-coords {
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  color: rgba(120, 180, 255, 0.45);
+  font-family: monospace;
 }
 
 .footer-holder {
@@ -255,10 +330,6 @@
 
   .appContainer {
     max-width: 100%;
-  }
-
-  .intro-container {
-    justify-content: center;
   }
 
   .skills-grid {

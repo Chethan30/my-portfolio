@@ -1,0 +1,99 @@
+.radar-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Concentric rings — sized as % so they scale with the 340px wrapper */
+.radar-ring {
+  position: absolute;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.radar-ring.r1 { width: 32%;  height: 32%;  border: 1px solid rgba(255, 185, 40, 0.28); }
+.radar-ring.r2 { width: 58%;  height: 58%;  border: 1px solid rgba(255, 185, 40, 0.18); }
+.radar-ring.r3 { width: 90%;  height: 90%;  border: 1px solid rgba(255, 185, 40, 0.10); }
+
+/* Crosshairs */
+.radar-cross {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 185, 40, 0.1);
+}
+.radar-cross.h { width: 90%; height: 1px; }
+.radar-cross.v { width: 1px; height: 90%; }
+
+/* Compass tick dots at the outer ring */
+.radar-tick {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 185, 40, 0.5);
+  top: 50%;
+  left: 50%;
+}
+.radar-tick.n  { transform: translate(-50%, calc(-50% - 45%)); }
+.radar-tick.s  { transform: translate(-50%, calc(-50% + 45%)); }
+.radar-tick.e  { transform: translate(calc(-50% + 45%), -50%); }
+.radar-tick.w  { transform: translate(calc(-50% - 45%), -50%); }
+
+/* Center dot */
+.radar-center {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 200, 60, 0.75);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 8px rgba(255, 200, 60, 0.65);
+}
+
+/* Sweep arm — rotates from center */
+.radar-sweep-wrap {
+  position: absolute;
+  inset: 0;
+  animation: radar-rotate 5s linear infinite;
+}
+
+.radar-sweep-arm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 45%;
+  height: 1px;
+  transform-origin: left center;
+  background: linear-gradient(
+    to right,
+    rgba(255, 200, 60, 0.8) 0%,
+    rgba(255, 200, 60, 0.15) 65%,
+    transparent 100%
+  );
+}
+
+/* Conic trailing glow behind the sweep */
+.radar-sweep-trail {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from -60deg,
+    transparent 0deg,
+    rgba(255, 190, 40, 0.08) 60deg,
+    transparent 60deg
+  );
+}
+
+@keyframes radar-rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}

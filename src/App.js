@@ -1,29 +1,33 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import Card from "./components/Card/Card";
 import Footer from "./components/Footer/Footer";
 import Intro from "./components/Introduction/Intro";
 import Navbar from "./components/NavBar/Navbar";
 import Starfield from "./components/Introduction/Starfield";
-import secretAudio from "./assets/secret_sound_2.mp3";
+import HudControls from "./components/HudControls/HudControls";
+import ambientMusic from "./assets/secret_sound.mp3";
+import sfxChannel from "./assets/secret_sound_2.mp3";
 import Work from "./pages/Work/Work";
 import { projects } from "./store/Store";
 // import About from "./components/About/About";
-import SkillCardFrontend from "./components/Card/SkillCardFrontend";
-import SkillCardBackend from "./components/Card/SkillCardBackend";
-import SkillCardDevops from "./components/Card/SkillCardDevops";
+import SkillSection from "./components/Card/SkillSection";
+import { SKILL_SECTIONS } from "./data/skillsSections";
 import ExpTimeline from "./components/Experience/ExpTimeline";
 
 function App() {
   const [pageActive, setPageActve] = useState(false);
   const [activeProj, setActiveProj] = useState({});
+  const [musicOn, setMusicOn] = useState(false);
+  const [sfxOn, setSfxOn] = useState(true);
+  const [navDockVisible, setNavDockVisible] = useState(true);
+  const musicRef = useRef(null);
+  const sfxRef = useRef(null);
 
   const mouseFollower = (cursor, trailer) => {
     window.onmousemove = (event) => {
       const x = event.clientX;
       const y = event.clientY;
-
-      console.log();
 
       cursor.animate(
         {
@@ -59,7 +63,6 @@ function App() {
     let cursor = document.querySelector(".cursor");
     let trailer = document.querySelector(".trailer");
     let cards = document.querySelectorAll('[data-interactive-project="true"]');
-    let logo = document.querySelector(".nav-logo");
 
     // logo.addEventListener("mouseover", (e) => {
     //   console.log("over and out!");
@@ -89,35 +92,76 @@ function App() {
     });
   }, [pageActive]);
 
-  const openOld = () => {
-    window.open(
-      "https://chethan30.github.io/my-portfolio.github.io/",
-      "_blank"
-    );
-  };
+  useEffect(() => {
+    if (pageActive) return;
+    const el = musicRef.current;
+    if (!el) return;
+    el.volume = 0.35;
+    if (musicOn) {
+      const playPromise = el.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+      }
+    } else {
+      el.pause();
+    }
+  }, [musicOn, pageActive]);
+
+  useEffect(() => {
+    if (pageActive) return;
+    const el = sfxRef.current;
+    if (!el) return;
+    el.muted = !sfxOn;
+  }, [sfxOn, pageActive]);
+
+  const missionHudHead = (
+    <>
+      <span className="hud-label">MISSION CONTROL // ONLINE</span>
+      <span className="hud-coords">LOGGED IN AS · CBN-7734</span>
+    </>
+  );
 
   return (
     <div className="App">
       <Starfield />
-      <div className="hud-corner hud-tl">
-        <span className="hud-label">MISSION CONTROL // ONLINE</span>
-        <span className="hud-coords">LOGGED IN AS · CBN-7734</span>
-      </div>
+      {pageActive ? (
+        <div className="hud-corner hud-tl">{missionHudHead}</div>
+      ) : (
+        <div className="hud-mission-row">
+          <div className="hud-mission-left">{missionHudHead}</div>
+          <HudControls
+            musicOn={musicOn}
+            onMusicToggle={() => setMusicOn((v) => !v)}
+            sfxOn={sfxOn}
+            onSfxToggle={() => setSfxOn((v) => !v)}
+            navVisible={navDockVisible}
+            onNavToggle={() => setNavDockVisible((v) => !v)}
+          />
+        </div>
+      )}
       <div className="hud-corner hud-br">
         <span className="hud-label">SECTOR: ENGINEERING</span>
         <span className="hud-coords">CLEARANCE: FULL ACCESS</span>
       </div>
-      <div
-        className="navbar"
-        style={{
-          border: "1px solid red",
-        }}
-      >
-        <Navbar showLinks={pageActive} />
-      </div>
+      <Navbar
+        showLinks={pageActive}
+        dockVisible={navDockVisible}
+      />
       {!pageActive && (
         <div className="appContainer">
-          <audio className="secret-audio2 growmore" src={secretAudio} />
+          <audio
+            ref={musicRef}
+            className="hud-audio hud-audio--music"
+            src={ambientMusic}
+            loop
+            preload="auto"
+          />
+          <audio
+            ref={sfxRef}
+            className="hud-audio hud-audio--sfx"
+            src={sfxChannel}
+            preload="auto"
+          />
 
           <div className="content2">
             {/* <---------- Introduction -----------> */}
@@ -174,25 +218,41 @@ function App() {
                 </div>
                 <div className="projects-see-more-wrap">
                   <a
-                    className="see-more projects-see-more-link link linkhover"
+                    className="fancyButton projects-see-more-link"
                     href="https://github.com/Chethan30"
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                   >
-                    See more
+                    <span className="btn-corner tl" aria-hidden="true" />
+                    <span className="btn-corner tr" aria-hidden="true" />
+                    <span className="btn-corner bl" aria-hidden="true" />
+                    <span className="btn-corner br" aria-hidden="true" />
+                    <span className="magic">SEE MORE</span>
                   </a>
                 </div>
               </div>
             </div>
-            {/* <---------- Services/ Skills -----------> */}
+            {/* <---------- Skills (data-driven HUD) -----------> */}
             <div className="skills-container" id="skills">
-              <div className="heading-holder">
-                <div className="heading">Skills</div>
-              </div>
-              <div className="skills-grid">
-                <SkillCardFrontend />
-                <SkillCardDevops />
-                <SkillCardBackend />
+              <div className="skills-hud-card">
+                <span className="sec-corner tl" aria-hidden="true" />
+                <span className="sec-corner tr" aria-hidden="true" />
+                <span className="sec-corner bl" aria-hidden="true" />
+                <span className="sec-corner br" aria-hidden="true" />
+                <div className="tick-strip" aria-hidden="true" />
+                <div className="heading experience-hud-heading">
+                  Subsystem registry · Skills
+                </div>
+                <div className="skills-grid">
+                  {SKILL_SECTIONS.map((section) => (
+                    <SkillSection
+                      key={section.id}
+                      sectionId={section.id}
+                      title={section.title}
+                      skills={section.skills}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>

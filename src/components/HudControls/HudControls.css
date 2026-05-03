@@ -1,0 +1,206 @@
+/* Inline telemetry strip — reads like corner HUD labels, not a chrome panel */
+
+.hud-controls-strip {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0;
+  row-gap: 4px;
+
+  padding: 0;
+  margin: 0;
+
+  font-family: monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  background: none;
+  border: none;
+  box-shadow: none;
+
+  max-width: min(100%, 420px);
+  text-align: right;
+}
+
+.hud-controls-sep {
+  color: rgba(120, 180, 255, 0.22);
+  user-select: none;
+  padding: 0 0.42em;
+  font-weight: 300;
+  flex-shrink: 0;
+}
+
+.hud-ctrl-btn {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.28rem;
+
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+
+  cursor: pointer;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+
+  color: rgba(120, 180, 255, 0.45);
+  opacity: 0.92;
+
+  transition: color 0.15s ease, opacity 0.15s ease;
+}
+
+.hud-ctrl-btn:hover {
+  color: rgba(160, 205, 255, 0.72);
+  opacity: 1;
+}
+
+.hud-ctrl-btn:focus-visible {
+  outline: none;
+  color: rgba(190, 220, 255, 0.88);
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 200, 90, 0.35);
+  text-underline-offset: 3px;
+}
+
+.hud-ctrl-btn.is-on {
+  color: rgba(255, 200, 60, 0.52);
+  opacity: 1;
+}
+
+.hud-ctrl-btn.is-on:hover {
+  color: rgba(255, 215, 100, 0.68);
+}
+
+.hud-ctrl-btn--notice {
+  color: rgba(255, 190, 80, 0.48);
+  opacity: 0.95;
+}
+
+.hud-ctrl-btn--notice:hover {
+  color: rgba(255, 210, 120, 0.65);
+  opacity: 1;
+}
+
+.hud-ctrl-icon {
+  flex-shrink: 0;
+  width: 0.72rem;
+  height: 0.72rem;
+  opacity: 0.88;
+}
+
+.hud-ctrl-btn.is-on .hud-ctrl-icon {
+  opacity: 0.92;
+}
+
+.hud-ctrl-label {
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  .hud-controls-strip {
+    font-size: 0.54rem;
+    letter-spacing: 0.06em;
+  }
+
+  .hud-ctrl-icon {
+    width: 0.68rem;
+    height: 0.68rem;
+  }
+
+  .hud-controls-sep {
+    padding: 0 0.28em;
+  }
+}
+
+/* ---- Disclaimer modal (unchanged role; kept visually distinct when open) ---- */
+.hud-disclaimer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 4vw, 32px);
+
+  background: rgba(2, 4, 10, 0.78);
+  backdrop-filter: blur(8px);
+  pointer-events: auto;
+}
+
+.hud-disclaimer-panel {
+  max-width: 28rem;
+  width: 100%;
+  padding: 1.25rem 1.35rem;
+
+  border-radius: 4px;
+  border: 1px solid rgba(255, 200, 90, 0.28);
+  background: rgba(6, 10, 18, 0.95);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.65) inset,
+    0 12px 48px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(120, 200, 255, 0.08);
+}
+
+.hud-disclaimer-title {
+  margin: 0 0 0.75rem;
+  font-family: monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 200, 80, 0.88);
+}
+
+.hud-disclaimer-body {
+  margin: 0 0 0.65rem;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: rgba(200, 215, 235, 0.82);
+}
+
+.hud-disclaimer-body:last-of-type {
+  margin-bottom: 1rem;
+}
+
+.hud-disclaimer-dismiss {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.55rem 1rem;
+
+  cursor: pointer;
+  font-family: monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  color: rgba(255, 220, 130, 0.95);
+  background: rgba(255, 200, 80, 0.1);
+  border: 1px solid rgba(255, 200, 90, 0.35);
+  border-radius: 2px;
+
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.hud-disclaimer-dismiss:hover {
+  background: rgba(255, 200, 80, 0.16);
+  border-color: rgba(255, 200, 100, 0.5);
+}
+
+.hud-disclaimer-dismiss:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px rgba(255, 200, 80, 0.45),
+    0 0 18px rgba(120, 200, 255, 0.15);
+}

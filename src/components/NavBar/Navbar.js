@@ -1,38 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Navbar.css";
-import logoWhite from "../../assets/chethan-logo-white.png";
 
-export default function Navbar({ showLinks }) {
+/** Section anchors — SPA in-page jumps only */
+const NAV_LINKS = [
+  { hash: "#about", label: "Brief" },
+  { hash: "#experience", label: "Log" },
+  { hash: "#projects", label: "Dossiers" },
+  { hash: "#skills", label: "Systems" },
+];
+
+export default function Navbar({ showLinks, dockVisible = true }) {
+  const [active, setActive] = useState("#about");
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY + window.innerHeight * 0.2;
+      for (let i = NAV_LINKS.length - 1; i >= 0; i--) {
+        const id = NAV_LINKS[i].hash.slice(1);
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= y) {
+          setActive(NAV_LINKS[i].hash);
+          break;
+        }
+      }
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [showLinks]);
+
+  if (showLinks) {
+    return null;
+  }
+
   return (
-    <div className="nav-container">
-      <div>
-        <img
-          className="nav-logo link"
-          src={logoWhite}
-          alt="logo-white"
-          draggable={false}
-        />
-      </div>
-
-      {!showLinks && (
-        <div className="nav-links">
-          <a className="sec link" href="#about" rel="noopener noreferrer">
-            About
-          </a>
-          <a className="sec link" href="#skills" rel="noopener noreferrer">
-            Skills
-          </a>
-          <a className="sec link" href="#experience" rel="noopener noreferrer">
-            Experience
-          </a>
-          <a className="sec link" href="#projects" rel="noopener noreferrer">
-            Projects
-          </a>
-          {/* <a className="sec link" href="#contact" rel="noopener noreferrer">
-            Contact
-          </a> */}
-        </div>
-      )}
-    </div>
+    <nav
+      className={`hud-section-dock${dockVisible ? "" : " hud-dock-hidden"}`}
+      aria-label="Jump to section"
+      aria-hidden={!dockVisible}
+    >
+      <ul className="hud-dock-list">
+        {NAV_LINKS.map(({ hash, label }) => {
+          const isActive = active === hash;
+          return (
+            <li key={hash}>
+              <a
+                className={`hud-dock-link ${isActive ? "is-active" : ""}`}
+                href={hash}
+                onClick={() => setActive(hash)}
+              >
+                {label}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
   );
 }

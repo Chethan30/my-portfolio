@@ -235,17 +235,29 @@
 .skills-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 1rem 2rem;
+  align-items: center;
+  width: 100%;
+  padding: 0;
 }
 
 .skills-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+  width: 100%;
+  justify-items: center;
+}
 
-  /* align-items: center; */
-  justify-content: center;
+@media screen and (min-width: 1025px) {
+  .skills-hud-card .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .skills-hud-card .skills-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* .intro-container {
@@ -261,7 +273,8 @@
 
 /* HUD panel — matches intro hero surface */
 .experience-hud-card,
-.projects-hud-card {
+.projects-hud-card,
+.skills-hud-card {
   position: relative;
   box-sizing: border-box;
   width: 100%;
@@ -285,15 +298,21 @@
   padding-bottom: clamp(2.25rem, 4vw, 3rem);
 }
 
+.skills-hud-card {
+  padding-bottom: clamp(2rem, 3.5vw, 2.5rem);
+}
+
 .experience-hud-card:hover .sec-corner,
-.projects-hud-card:hover .sec-corner {
+.projects-hud-card:hover .sec-corner,
+.skills-hud-card:hover .sec-corner {
   width: 20px;
   height: 20px;
   border-color: rgba(255, 215, 80, 0.85);
 }
 
 .experience-hud-card .experience-hud-heading,
-.projects-hud-card .experience-hud-heading {
+.projects-hud-card .experience-hud-heading,
+.skills-hud-card .experience-hud-heading {
   margin: 0 0 1.5rem !important;
   padding: 0 0 0.65rem 0 !important;
   text-align: left;
@@ -308,18 +327,30 @@
 .projects-see-more-wrap {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-top: 1.5rem;
-  padding-top: 0.5rem;
+  padding-top: 0.75rem;
 }
 
-.projects-see-more-link {
-  letter-spacing: 0.14em !important;
-  font-size: 0.72rem !important;
-  color: rgba(170, 200, 235, 0.85) !important;
+/* Same HUD control as hero resume; anchor-specific layout tweaks */
+.projects-see-more-wrap .projects-see-more-link.fancyButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  text-decoration: none;
 }
 
-.projects-see-more-link:hover {
-  color: rgba(255, 220, 100, 0.95) !important;
+.projects-see-more-wrap .fancyButton:link,
+.projects-see-more-wrap .fancyButton:visited {
+  color: inherit;
+}
+
+.projects-see-more-wrap .fancyButton:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px rgba(255, 200, 80, 0.55),
+    0 0 20px rgba(120, 200, 255, 0.2);
 }
 
 /* ---- Global HUD corner labels ---- */
@@ -337,10 +368,49 @@
   left: 18px;
 }
 
+/* Single top strip: left mission copy + inline telemetry controls (home only) */
+.hud-mission-row {
+  position: fixed;
+  top: 14px;
+  left: 18px;
+  right: 18px;
+  z-index: 999;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: clamp(12px, 3vw, 28px);
+
+  pointer-events: none;
+}
+
+.hud-mission-row .hud-controls-strip {
+  pointer-events: auto;
+  align-self: flex-start;
+}
+
+.hud-mission-left {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  pointer-events: none;
+  max-width: min(52vw, 24rem);
+}
+
 .hud-br {
   bottom: 14px;
   right: 18px;
   align-items: flex-end;
+}
+
+.hud-audio {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
 }
 
 .hud-label {
@@ -383,8 +453,8 @@
     max-width: 100%;
   }
 
-  .skills-grid {
-    gap: 0.1rem;
+  .skills-hud-card .skills-grid {
+    gap: 1rem;
   }
 }
 

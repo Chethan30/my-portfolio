@@ -1,5 +1,4 @@
 import React from "react";
-import secretAudio from "../../assets/secret_sound.mp3";
 import MyIntro from "./MyIntro";
 import RadarRing from "./RadarRing";
 import "./Intro.css";
@@ -7,8 +6,6 @@ import "./Intro.css";
 export default function Intro() {
   return (
     <section className="intro-container" id="about">
-      <audio className="secret-audio" src={secretAudio} />
-
       {/* Section corner brackets */}
       <span className="sec-corner tl" /><span className="sec-corner tr" />
       <span className="sec-corner bl" /><span className="sec-corner br" />

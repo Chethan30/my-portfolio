@@ -65,19 +65,36 @@
 .card-container {
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   justify-content: center;
-  padding: 1rem 2rem;
-
+  padding: 0;
   margin-top: 4rem;
 }
 
 .card-grid {
-  display: inline-grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  /* row-gap: 10px;
-  column-gap: 10px; */
-  gap: 18px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: clamp(14px, 2vw, 22px);
+  width: 100%;
+  justify-items: stretch;
+  align-items: stretch;
+}
+
+@media screen and (min-width: 1025px) {
+  .projects-hud-card .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 900px) and (min-width: 601px) {
+  .projects-hud-card .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .projects-hud-card .card-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .cursor {
@@ -167,24 +184,34 @@
 }
 
 .point {
-  width: 60px;
-  height: 60px;
+  width: 62px;
+  height: 62px;
   display: flex;
-  background-color: black;
+  background-color: rgba(5, 8, 16, 0.92);
   align-items: center;
   justify-content: center;
+
+  border: 1px solid rgba(255, 200, 80, 0.45);
+  box-shadow:
+    0 0 0 1px rgba(120, 200, 255, 0.12),
+    0 0 28px rgba(255, 200, 80, 0.25);
 }
 
 .point > .cursor-icon {
   opacity: 1;
-  animation: spin 1.5s 1 forwards;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  filter: drop-shadow(0 0 6px rgba(255, 220, 100, 0.5));
+  animation: spin 4s linear infinite;
 }
 
 @keyframes spin {
-  0% {
+  from {
     transform: rotate(0deg);
   }
-  100% {
+  to {
     transform: rotate(360deg);
   }
 }
@@ -233,7 +260,8 @@
 }
 
 /* HUD panel — matches intro hero surface */
-.experience-hud-card {
+.experience-hud-card,
+.projects-hud-card {
   position: relative;
   box-sizing: border-box;
   width: 100%;
@@ -253,13 +281,19 @@
   background-position: center, center, 0 0;
 }
 
-.experience-hud-card:hover .sec-corner {
+.projects-hud-card {
+  padding-bottom: clamp(2.25rem, 4vw, 3rem);
+}
+
+.experience-hud-card:hover .sec-corner,
+.projects-hud-card:hover .sec-corner {
   width: 20px;
   height: 20px;
   border-color: rgba(255, 215, 80, 0.85);
 }
 
-.experience-hud-card .experience-hud-heading {
+.experience-hud-card .experience-hud-heading,
+.projects-hud-card .experience-hud-heading {
   margin: 0 0 1.5rem !important;
   padding: 0 0 0.65rem 0 !important;
   text-align: left;
@@ -269,6 +303,23 @@
   text-transform: uppercase;
   color: rgba(255, 200, 60, 0.72) !important;
   border-bottom: 1px solid rgba(255, 200, 80, 0.12);
+}
+
+.projects-see-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+  padding-top: 0.5rem;
+}
+
+.projects-see-more-link {
+  letter-spacing: 0.14em !important;
+  font-size: 0.72rem !important;
+  color: rgba(170, 200, 235, 0.85) !important;
+}
+
+.projects-see-more-link:hover {
+  color: rgba(255, 220, 100, 0.95) !important;
 }
 
 /* ---- Global HUD corner labels ---- */
@@ -338,12 +389,6 @@
 }
 
 @media screen and (max-width: 700px) {
-  .card-grid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: display 300ms ease-in-out;
-  }
   .appContainer {
     max-width: 100%;
   }

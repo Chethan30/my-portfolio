@@ -58,7 +58,7 @@ function App() {
     let links = Array.from(document.querySelectorAll(".link"));
     let cursor = document.querySelector(".cursor");
     let trailer = document.querySelector(".trailer");
-    let cards = document.querySelectorAll(".card");
+    let cards = document.querySelectorAll('[data-interactive-project="true"]');
     let logo = document.querySelector(".nav-logo");
 
     // logo.addEventListener("mouseover", (e) => {
@@ -146,35 +146,42 @@ function App() {
 
             {/* <---------- Projects -----------> */}
             <div className="card-container" id="projects">
-              <div className="heading-holder">
-                <div className="heading">Projects</div>
-              </div>
-              <div className="card-grid">
-                {projects.map((project, index) => {
-                  return (
-                    <Card
-                      className="card-ele"
-                      key={index}
-                      itemId={project.key}
-                      title={project.title}
-                      desc={project.minidesc}
-                      techStack={project.tech}
-                      projectInfo={project}
-                      openPage={setPageActve}
-                      setActiveProj={setActiveProj}
-                    />
-                  );
-                })}
-              </div>
-              <div className="heading-holder">
-                <a
-                  className="see-more link linkhover"
-                  href="https://github.com/Chethan30"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  See more
-                </a>
+              <div className="projects-hud-card">
+                <span className="sec-corner tl" aria-hidden="true" />
+                <span className="sec-corner tr" aria-hidden="true" />
+                <span className="sec-corner bl" aria-hidden="true" />
+                <span className="sec-corner br" aria-hidden="true" />
+                <div className="tick-strip" aria-hidden="true" />
+                <div className="heading experience-hud-heading">
+                  Mission dossier · Projects
+                </div>
+                <div className="card-grid">
+                  {projects.map((project, index) => {
+                    return (
+                      <Card
+                        className="card-ele"
+                        key={project.key ?? index}
+                        itemId={project.key}
+                        title={project.title}
+                        desc={project.minidesc}
+                        techStack={project.tech}
+                        projectInfo={project}
+                        openPage={setPageActve}
+                        setActiveProj={setActiveProj}
+                      />
+                    );
+                  })}
+                </div>
+                <div className="projects-see-more-wrap">
+                  <a
+                    className="see-more projects-see-more-link link linkhover"
+                    href="https://github.com/Chethan30"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    See more
+                  </a>
+                </div>
               </div>
             </div>
             {/* <---------- Services/ Skills -----------> */}

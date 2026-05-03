@@ -6,8 +6,8 @@ import Intro from "./components/Introduction/Intro";
 import Navbar from "./components/NavBar/Navbar";
 import Starfield from "./components/Introduction/Starfield";
 import HudControls from "./components/HudControls/HudControls";
-import ambientMusic from "./assets/secret_sound.mp3";
-import sfxChannel from "./assets/secret_sound_2.mp3";
+import bgMusicLoop from "./assets/secret_bg_1.mp3";
+import hoverMenuSfx from "./assets/secret_hover_score_1.wav";
 import Work from "./pages/Work/Work";
 import { projects } from "./store/Store";
 // import About from "./components/About/About";
@@ -24,7 +24,7 @@ const STARFIELD_PARALLAX_MODES = ["active", "reduced", "disabled"];
 function App() {
   const [pageActive, setPageActve] = useState(false);
   const [activeProj, setActiveProj] = useState({});
-  const [musicOn, setMusicOn] = useState(false);
+  const [musicOn, setMusicOn] = useState(true);
   const [sfxOn, setSfxOn] = useState(true);
   const [starfieldParallax, setStarfieldParallax] = useState(() => {
     try {
@@ -35,9 +35,9 @@ function App() {
     }
     return "active";
   });
-  const [navDockVisible, setNavDockVisible] = useState(true);
+  const [navDockVisible, setNavDockVisible] = useState(false);
   const musicRef = useRef(null);
-  const sfxRef = useRef(null);
+  const hoverSfxRef = useRef(null);
 
   const mouseFollower = (cursor, trailer) => {
     window.onmousemove = (event) => {
@@ -111,23 +111,59 @@ function App() {
     if (pageActive) return;
     const el = musicRef.current;
     if (!el) return;
-    el.volume = 0.35;
+    el.volume = 0.28;
     if (musicOn) {
       const playPromise = el.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {});
-      }
+      if (playPromise !== undefined) playPromise.catch(() => {});
     } else {
       el.pause();
     }
   }, [musicOn, pageActive]);
 
   useEffect(() => {
-    if (pageActive) return;
-    const el = sfxRef.current;
-    if (!el) return;
-    el.muted = !sfxOn;
-  }, [sfxOn, pageActive]);
+    if (pageActive || !musicOn) return undefined;
+    const unlock = () => {
+      musicRef.current?.play().catch(() => {});
+    };
+    window.addEventListener("pointerdown", unlock, {
+      passive: true,
+      once: true,
+    });
+    return () => window.removeEventListener("pointerdown", unlock);
+  }, [pageActive, musicOn]);
+
+  useEffect(() => {
+    if (pageActive || !sfxOn) return undefined;
+
+    const playHover = () => {
+      const a = hoverSfxRef.current;
+      if (!a) return;
+      a.volume = 0.42;
+      a.currentTime = 0;
+      void a.play().catch(() => {});
+    };
+
+    const selectors = [
+      ".link",
+      ".hud-dock-link",
+      ".exp-timeline-root .vertical-timeline-element",
+      "#skills .skills-card",
+      "a.fancyButton",
+    ].join(",");
+    const nodes = Array.from(document.querySelectorAll(selectors)).filter(
+      (el) => el instanceof HTMLElement,
+    );
+
+    nodes.forEach((el) => {
+      el.addEventListener("mouseenter", playHover, { passive: true });
+    });
+
+    return () => {
+      nodes.forEach((el) => {
+        el.removeEventListener("mouseenter", playHover);
+      });
+    };
+  }, [pageActive, sfxOn]);
 
   useEffect(() => {
     try {
@@ -206,14 +242,14 @@ function App() {
           <audio
             ref={musicRef}
             className="hud-audio hud-audio--music"
-            src={ambientMusic}
+            src={bgMusicLoop}
             loop
             preload="auto"
           />
           <audio
-            ref={sfxRef}
+            ref={hoverSfxRef}
             className="hud-audio hud-audio--sfx"
-            src={sfxChannel}
+            src={hoverMenuSfx}
             preload="auto"
           />
 

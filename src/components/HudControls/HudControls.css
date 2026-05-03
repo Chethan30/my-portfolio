@@ -81,6 +81,37 @@
   color: rgba(255, 215, 100, 0.68);
 }
 
+/* Starfield scroll depth — 3-cycle: full / reduced / off */
+.hud-ctrl-btn.hud-ctrl-btn--parallax {
+  opacity: 1;
+}
+
+.hud-ctrl-btn.hud-ctrl-btn--parallax-active {
+  color: rgba(255, 210, 118, 0.9);
+}
+
+.hud-ctrl-btn.hud-ctrl-btn--parallax-active:hover {
+  color: rgba(255, 225, 150, 0.98);
+}
+
+.hud-ctrl-btn.hud-ctrl-btn--parallax-reduced {
+  color: rgba(110, 230, 170, 0.82);
+}
+
+.hud-ctrl-btn.hud-ctrl-btn--parallax-reduced:hover {
+  color: rgba(145, 245, 195, 0.95);
+}
+
+.hud-ctrl-btn.hud-ctrl-btn--parallax-disabled {
+  color: rgba(120, 165, 210, 0.38);
+  opacity: 0.85;
+}
+
+.hud-ctrl-btn.hud-ctrl-btn--parallax-disabled:hover {
+  color: rgba(150, 190, 230, 0.55);
+  opacity: 1;
+}
+
 .hud-ctrl-btn--notice {
   color: rgba(255, 190, 80, 0.48);
   opacity: 0.95;

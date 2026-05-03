@@ -1,3 +1,16 @@
+:root {
+  /* In-page anchor clearance (fixed mission bar + breathing room) */
+  --hud-scroll-clearance: clamp(52px, 9vh, 84px);
+}
+
+#about,
+#experience,
+#projects,
+#skills {
+  scroll-margin-top: var(--hud-scroll-clearance);
+  scroll-margin-bottom: clamp(64px, 11vh, 92px);
+}
+
 .App {
   padding: 0;
   margin: 0;

@@ -7,6 +7,9 @@ import {
   TbLayoutNavbar,
   TbLayoutOff,
   TbAlertTriangle,
+  TbStack2,
+  TbStack,
+  TbLayersOff,
 } from "react-icons/tb";
 import "./HudControls.css";
 
@@ -15,6 +18,8 @@ export default function HudControls({
   onMusicToggle,
   sfxOn,
   onSfxToggle,
+  parallaxMode = "active",
+  onParallaxCycle,
   navVisible,
   onNavToggle,
 }) {
@@ -38,7 +43,23 @@ export default function HudControls({
     </span>
   );
 
-  const BTN_KEYS = ["music", "sfx", "nav", "notice"];
+  let parallaxIcon;
+  let parallaxTitle;
+  if (parallaxMode === "active") {
+    parallaxIcon = <TbStack2 className="hud-ctrl-icon" aria-hidden />;
+    parallaxTitle =
+      "Starfield depth full — opposite scroll parallax active. Click for low depth.";
+  } else if (parallaxMode === "reduced") {
+    parallaxIcon = <TbStack className="hud-ctrl-icon" aria-hidden />;
+    parallaxTitle =
+      "Starfield depth reduced. Click to disable depth parallax.";
+  } else {
+    parallaxIcon = <TbLayersOff className="hud-ctrl-icon" aria-hidden />;
+    parallaxTitle =
+      "Starfield depth off. Click to restore full depth parallax.";
+  }
+
+  const BTN_KEYS = ["music", "sfx", "parallax", "nav", "notice"];
 
   const telemetryButtons = [
     <button
@@ -72,6 +93,24 @@ export default function HudControls({
         <TbVolumeOff className="hud-ctrl-icon" aria-hidden />
       )}
       <span className="hud-ctrl-label">SFX</span>
+    </button>,
+    <button
+      key="parallax"
+      type="button"
+      className={`hud-ctrl-btn hud-ctrl-btn--parallax hud-ctrl-btn--parallax-${parallaxMode}`}
+      aria-pressed={
+        parallaxMode === "active"
+          ? "true"
+          : parallaxMode === "reduced"
+            ? "mixed"
+            : "false"
+      }
+      aria-label={`Starfield parallax depth: ${parallaxMode}. Click for next.`}
+      onClick={onParallaxCycle}
+      title={parallaxTitle}
+    >
+      {parallaxIcon}
+      <span className="hud-ctrl-label">Depth</span>
     </button>,
     <button
       key="nav"
@@ -142,8 +181,9 @@ export default function HudControls({
             <p className="hud-disclaimer-body">
               If you are sensitive to motion or flashing, consider closing this
               page, using your operating system&rsquo;s{" "}
-              <strong>reduce motion</strong> setting (where available), and
-              keeping ambient audio off unless you choose to enable it.
+              <strong>reduce motion</strong> setting (where available), use the{" "}
+              <strong>Depth</strong> HUD control for minimal or no scroll parallax,
+              and keep ambient audio off unless you choose to enable it.
             </p>
             <button
               ref={closeBtnRef}

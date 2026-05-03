@@ -11,5 +11,50 @@ body {
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
+}
+
+/* ---- HUD-style scrollbars (viewport + nested overflow) ---- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 205, 95, 0.55) rgba(3, 6, 14, 0.97);
+}
+
+*::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+*::-webkit-scrollbar-track {
+  background: linear-gradient(
+    180deg,
+    rgba(8, 12, 22, 0.99) 0%,
+    rgba(4, 6, 12, 1) 50%,
+    rgba(8, 12, 22, 0.99) 100%
+  );
+  border-left: 1px solid rgba(255, 200, 90, 0.1);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(45, 58, 78, 0.95) 0%,
+    rgba(22, 32, 48, 0.98) 100%
+  );
+  border: 1px solid rgba(255, 200, 90, 0.28);
+  border-radius: 2px;
+  box-shadow:
+    inset 0 0 8px rgba(120, 200, 255, 0.12),
+    0 0 0 1px rgba(0, 0, 0, 0.4);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  border-color: rgba(255, 215, 110, 0.5);
+  box-shadow:
+    inset 0 0 10px rgba(120, 200, 255, 0.2),
+    0 0 12px rgba(255, 200, 90, 0.15);
+}
+
+*::-webkit-scrollbar-corner {
+  background: rgba(4, 6, 12, 1);
 }

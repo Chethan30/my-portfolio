@@ -14,12 +14,27 @@ import { projects } from "./store/Store";
 import SkillSection from "./components/Card/SkillSection";
 import { SKILL_SECTIONS } from "./data/skillsSections";
 import ExpTimeline from "./components/Experience/ExpTimeline";
+import {
+  attachHudAnchorScroll,
+  hudScrollToHashId,
+} from "./utils/hudScroll";
+
+const STARFIELD_PARALLAX_MODES = ["active", "reduced", "disabled"];
 
 function App() {
   const [pageActive, setPageActve] = useState(false);
   const [activeProj, setActiveProj] = useState({});
   const [musicOn, setMusicOn] = useState(false);
   const [sfxOn, setSfxOn] = useState(true);
+  const [starfieldParallax, setStarfieldParallax] = useState(() => {
+    try {
+      const saved = sessionStorage.getItem("hud-parallax");
+      if (STARFIELD_PARALLAX_MODES.includes(saved)) return saved;
+    } catch {
+      /* ignore */
+    }
+    return "active";
+  });
   const [navDockVisible, setNavDockVisible] = useState(true);
   const musicRef = useRef(null);
   const sfxRef = useRef(null);
@@ -114,6 +129,36 @@ function App() {
     el.muted = !sfxOn;
   }, [sfxOn, pageActive]);
 
+  useEffect(() => {
+    try {
+      sessionStorage.setItem("hud-parallax", starfieldParallax);
+    } catch {
+      /* ignore */
+    }
+  }, [starfieldParallax]);
+
+  useEffect(() => {
+    return attachHudAnchorScroll(() => !pageActive);
+  }, [pageActive]);
+
+  useEffect(() => {
+    if (pageActive) return;
+    const hashId = decodeURIComponent(window.location.hash.slice(1));
+    if (!hashId) return;
+
+    let alive = true;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (!alive) return;
+        void hudScrollToHashId(hashId);
+      });
+    });
+
+    return () => {
+      alive = false;
+    };
+  }, [pageActive]);
+
   const missionHudHead = (
     <>
       <span className="hud-label">MISSION CONTROL // ONLINE</span>
@@ -123,7 +168,7 @@ function App() {
 
   return (
     <div className="App">
-      <Starfield />
+      <Starfield parallaxMode={starfieldParallax} />
       {pageActive ? (
         <div className="hud-corner hud-tl">{missionHudHead}</div>
       ) : (
@@ -134,6 +179,15 @@ function App() {
             onMusicToggle={() => setMusicOn((v) => !v)}
             sfxOn={sfxOn}
             onSfxToggle={() => setSfxOn((v) => !v)}
+            parallaxMode={starfieldParallax}
+            onParallaxCycle={() =>
+              setStarfieldParallax((prev) => {
+                const i = STARFIELD_PARALLAX_MODES.indexOf(prev);
+                return STARFIELD_PARALLAX_MODES[
+                  ((i >= 0 ? i : 0) + 1) % STARFIELD_PARALLAX_MODES.length
+                ];
+              })
+            }
             navVisible={navDockVisible}
             onNavToggle={() => setNavDockVisible((v) => !v)}
           />

@@ -6,7 +6,7 @@
   min-width: 0;
   max-width: 420px;
 
-  border: 1px solid rgba(255, 200, 80, 0.16);
+  border: 1px solid var(--hud-amber-a16);
   border-radius: 3px;
 
   display: flex;
@@ -15,10 +15,7 @@
 
   padding: clamp(0.75rem, 2vw, 1rem) clamp(0.65rem, 1.8vw, 0.95rem);
 
-  background:
-    radial-gradient(ellipse at 15% 10%, rgba(40, 35, 70, 0.25) 0%, transparent 60%),
-    radial-gradient(ellipse at 90% 95%, rgba(10, 35, 65, 0.2) 0%, transparent 55%),
-    rgba(0, 0, 0, 0.25);
+  background: var(--grad-skills-card-base), var(--hud-skill-underlay);
 }
 
 .skill-heading {
@@ -29,8 +26,8 @@
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(255, 200, 60, 0.72);
-  border-bottom: 1px solid rgba(255, 200, 80, 0.12);
+  color: var(--hud-gold-072-heading);
+  border-bottom: 1px solid var(--hud-amber-a12);
 
   text-align: left;
 }
@@ -61,11 +58,11 @@
 
   padding: 5px 9px;
 
-  border: 1px solid rgba(255, 200, 80, 0.3);
+  border: 1px solid var(--hud-amber-a30);
   border-radius: 2px;
 
-  color: rgba(200, 220, 255, 0.9);
-  background: rgba(0, 0, 0, 0.4);
+  color: var(--hud-skill-fg-90);
+  background: var(--hud-panel-40);
 
   font-size: clamp(0.52rem, 0.95vw, 0.68rem);
   font-weight: 600;
@@ -89,8 +86,8 @@
 .skill-icon-wrap svg {
   width: 1em;
   height: 1em;
-  color: rgba(255, 200, 90, 0.75);
-  filter: drop-shadow(0 0 4px rgba(255, 200, 60, 0.2));
+  color: var(--hud-skill-icon);
+  filter: drop-shadow(0 0 4px var(--hud-glow-100));
 }
 
 .skill-name {
@@ -98,13 +95,13 @@
 }
 
 .skill:hover {
-  border-color: rgba(255, 220, 100, 0.5);
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 14px rgba(255, 200, 80, 0.1);
+  border-color: var(--hud-skill-chip-hover-border);
+  background: var(--hud-chip-hover-bg);
+  box-shadow: 0 0 14px var(--hud-glow-082);
 }
 
 .skill:hover .skill-icon-wrap svg {
-  color: rgba(255, 230, 140, 0.95);
+  color: var(--hud-warm-140);
 }
 
 @media screen and (max-width: 600px) {

@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: space-between;
 
-  background: linear-gradient(black 15%, rgb(0, 0, 0, 0.5), rgb(0, 0, 0, 0.01));
+  background: var(--grad-nav-fade);
   backdrop-filter: blur(12px);
   padding: 1rem;
 }
@@ -44,7 +44,7 @@
 }
 
 .sec {
-  color: white;
+  color: var(--hud-fg);
   font-size: clamp(1rem, 1.5vw, 1.5rem);
   cursor: none;
   margin: 0 1rem;
@@ -72,12 +72,10 @@
   bottom: 1rem;
   left: 50%;
   transform: translateX(-50%);
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--hud-glass-10);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow:
-    0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--hud-glass-20);
+  box-shadow: var(--shadow-nav-float-1), var(--shadow-nav-float-2);
   border-radius: 9999px;
   padding: 0.5rem 1rem;
   z-index: 50;
@@ -100,7 +98,7 @@
   padding: 0.5rem 1rem;
   border-radius: 9999px;
   transition: all 0.2s ease-in-out;
-  color: #4b5563;
+  color: var(--hud-nav-gray-text);
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -108,13 +106,13 @@
   font-weight: 500;
 }
 .nav-button:hover {
-  background-color: #f3f4f6;
+  background-color: var(--hud-nav-gray-hover-bg);
 }
 
 .nav-button.active {
-  background-color: #1f2937;
-  color: white;
-  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  background-color: var(--hud-nav-gray-active-bg);
+  color: var(--hud-fg);
+  box-shadow: var(--shadow-nav-pill-inset);
 }
 .nav-text {
   display: none;
@@ -148,12 +146,12 @@
   font-family: monospace;
   letter-spacing: 0.06em;
 
-  background: rgba(4, 8, 14, 0.72);
-  border: 1px solid rgba(255, 200, 90, 0.22);
+  background: var(--hud-dock-bg);
+  border: 1px solid var(--hud-amber-a22);
   box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.55) inset,
-    0 4px 24px rgba(0, 0, 0, 0.55),
-    0 0 32px rgba(120, 200, 255, 0.06);
+    0 0 0 1px var(--hud-dock-inset) inset,
+    0 4px 24px var(--hud-dock-inset),
+    0 0 32px var(--hud-cyan-08);
 
   transition:
     opacity 0.22s ease,
@@ -181,7 +179,7 @@
   padding: 0.45rem 0.72rem;
   font-size: 0.62rem;
   text-transform: uppercase;
-  color: rgba(120, 180, 255, 0.55);
+  color: var(--hud-cyan-55);
   text-decoration: none;
   border: 1px solid transparent;
   border-radius: 2px;
@@ -193,26 +191,26 @@
 }
 
 .hud-dock-link:hover {
-  color: rgba(160, 210, 255, 0.85);
-  background: rgba(120, 200, 255, 0.06);
+  color: var(--hud-dock-hover-fg);
+  background: var(--hud-dock-hover-wash);
 }
 
 .hud-dock-link:focus-visible {
   outline: none;
-  border-color: rgba(255, 200, 80, 0.45);
+  border-color: var(--hud-amber-a45-glow);
   box-shadow:
-    0 0 0 1px rgba(255, 200, 80, 0.25),
-    0 0 18px rgba(120, 200, 255, 0.12);
+    0 0 0 1px var(--hud-amber-a25),
+    0 0 18px var(--hud-cyan-12);
 }
 
 .hud-dock-link.is-active {
-  color: rgba(255, 220, 120, 0.88);
-  border-color: rgba(255, 200, 90, 0.28);
-  background: rgba(255, 200, 80, 0.06);
+  color: var(--hud-dock-active-fg);
+  border-color: var(--hud-amber-a28);
+  background: var(--hud-glow-100);
 }
 
 .hud-dock-link.is-active:hover {
-  color: rgba(255, 230, 150, 0.98);
+  color: var(--hud-warm-165);
 }
 
 .hud-section-dock.hud-dock-hidden {

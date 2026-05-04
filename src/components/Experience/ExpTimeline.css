@@ -7,20 +7,13 @@
 
 /* Vertical spine */
 .experience-hud-card .vertical-timeline::before {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 200, 80, 0.08) 0%,
-    rgba(255, 200, 80, 0.28) 15%,
-    rgba(120, 180, 255, 0.2) 50%,
-    rgba(255, 200, 80, 0.28) 85%,
-    rgba(255, 200, 80, 0.08) 100%
-  ) !important;
+  background: var(--grad-timeline-spine) !important;
   width: 2px !important;
 }
 
 /* Date stamps — telemetry readout */
 .experience-hud-card .vertical-timeline-element-date {
-  color: rgba(140, 175, 220, 0.75) !important;
+  color: var(--hud-cyan-75-muted) !important;
   font-size: 0.65rem !important;
   font-weight: 500 !important;
   letter-spacing: 0.14em !important;
@@ -34,37 +27,43 @@
 }
 
 .experience-hud-card .vertical-timeline-element-content:hover {
-  border-color: rgba(255, 210, 80, 0.45) !important;
-  background: rgba(0, 0, 0, 0.55) !important;
+  border-color: var(--hud-amber-a45-border) !important;
+  background: var(--hud-void-55) !important;
   transform: none !important;
-  box-shadow: 0 0 0 1px rgba(255, 200, 80, 0.12), 0 0 24px rgba(255, 200, 60, 0.08) !important;
+  box-shadow:
+    0 0 0 1px var(--hud-amber-a12),
+    0 0 24px var(--hud-glow-082) !important;
 }
 
 /* Arrow triangles — match card border */
 .experience-hud-card .vertical-timeline-element-content-arrow {
-  border-right-color: rgba(255, 200, 80, 0.22) !important;
+  border-right-color: var(--hud-amber-a22) !important;
 }
 
 /* Icon nodes */
 .experience-hud-card .vertical-timeline-element-icon {
-  box-shadow: 0 0 0 1px rgba(255, 200, 80, 0.35), 0 0 12px rgba(255, 200, 60, 0.12) !important;
+  box-shadow:
+    0 0 0 1px var(--hud-amber-a35),
+    0 0 12px var(--hud-timeline-icon-shadow) !important;
 }
 
 .experience-hud-card .vertical-timeline-element-icon svg {
-  filter: drop-shadow(0 0 4px rgba(255, 200, 80, 0.35));
+  filter: drop-shadow(0 0 4px var(--hud-timeline-icon-glow));
 }
 
 .experience-hud-card .vertical-timeline-element:hover > .vertical-timeline-element-icon {
   border: none !important;
   transform: scale(1.08) !important;
-  color: rgba(255, 230, 120, 1) !important;
-  box-shadow: 0 0 0 1px rgba(255, 220, 100, 0.55), 0 0 16px rgba(255, 200, 60, 0.2) !important;
+  color: var(--hud-icon-hot) !important;
+  box-shadow:
+    0 0 0 1px var(--hud-amber-a61),
+    0 0 16px var(--hud-timeline-hover-glow) !important;
   transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.25s ease !important;
 }
 
 /* Titles */
 .experience-hud-card .vertical-timeline-element-title {
-  color: #e8eeff !important;
+  color: var(--hud-text-strong) !important;
   font-size: clamp(1rem, 1.4vw, 1.15rem) !important;
   font-weight: 700 !important;
   letter-spacing: 0.06em !important;
@@ -73,7 +72,7 @@
 }
 
 .experience-hud-card .vertical-timeline-element:hover .vertical-timeline-element-title {
-  color: rgba(255, 230, 140, 0.95) !important;
+  color: var(--hud-warm-140) !important;
 }
 
 /* Subtitle / org + location row — flex keeps icon baseline aligned with text */
@@ -88,7 +87,7 @@
   padding: 0 !important;
   min-height: 1.35em !important;
 
-  color: rgba(170, 200, 235, 0.88) !important;
+  color: var(--hud-cyan-82-mist) !important;
   font-size: 0.75rem !important;
   font-weight: 500 !important;
   line-height: 1.45 !important;
@@ -108,17 +107,104 @@
 }
 
 .experience-hud-card .content-icon {
-  color: rgba(255, 200, 80, 0.5) !important;
+  color: var(--hud-icon-gold-50) !important;
 }
 
 /* Body / stack tags */
-.experience-hud-card .vertical-timeline-element-content > p {
-  color: rgba(155, 185, 220, 0.78) !important;
+.experience-hud-card .vertical-timeline-element-content > p,
+.experience-hud-card .exp-preview {
+  color: var(--hud-cyan-88-preview) !important;
   font-size: 0.78rem !important;
   font-weight: 300 !important;
   letter-spacing: 0.05em !important;
   line-height: 1.65 !important;
   text-transform: uppercase !important;
+}
+
+/* Expandable card body */
+.experience-hud-card .exp-entry {
+  text-align: left;
+}
+
+.experience-hud-card .exp-entry--interactive {
+  cursor: pointer;
+  border-radius: 2px;
+  outline: none;
+  transition: background 0.2s ease;
+}
+
+.experience-hud-card .exp-entry--interactive:focus-visible {
+  outline: 2px solid var(--hud-amber-a65);
+  outline-offset: 3px;
+}
+
+.experience-hud-card .exp-expand-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--hud-amber-a12);
+  color: var(--hud-amber-a55);
+  font-size: 0.62rem !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+}
+
+.experience-hud-card .exp-expand-chevron {
+  display: inline-block;
+  font-size: 0.65rem !important;
+  transition: transform 0.28s ease;
+  color: var(--hud-amber-a70);
+}
+
+.experience-hud-card .exp-expand-chevron--open {
+  transform: rotate(180deg);
+}
+
+.experience-hud-card .exp-details-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.experience-hud-card .exp-details-panel--open {
+  max-height: 28rem;
+}
+
+.experience-hud-card .exp-details-inner {
+  padding-top: 0.75rem;
+}
+
+.experience-hud-card .exp-details-summary {
+  color: var(--hud-cyan-82-body) !important;
+  font-size: 0.78rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.04em !important;
+  line-height: 1.6 !important;
+  text-transform: none !important;
+  margin: 0 0 0.65rem !important;
+}
+
+.experience-hud-card .exp-details-bullets {
+  margin: 0;
+  padding: 0 0 0 1.05rem !important;
+  list-style: disc;
+  color: var(--hud-cyan-85-bullet) !important;
+}
+
+.experience-hud-card .exp-details-bullets li {
+  font-size: 0.74rem !important;
+  letter-spacing: 0.045em !important;
+  line-height: 1.55 !important;
+  text-transform: none !important;
+  margin-bottom: 0.4rem !important;
+}
+
+.experience-hud-card .exp-details-bullets li:last-child {
+  margin-bottom: 0 !important;
 }
 
 /* Remove old hover scale / grey flash */

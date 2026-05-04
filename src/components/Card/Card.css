@@ -13,11 +13,11 @@
   overflow: hidden;
   position: relative;
 
-  aspect-ratio: 1 / 1.2;
+  aspect-ratio: 1 / 0.6;
   min-width: 0;
-  min-height: 220px;
+  min-height: 110px;
 
-  border: 1px solid rgba(255, 200, 80, 0.18);
+  border: 1px solid var(--hud-card-border);
   border-radius: 3px;
 
   cursor: pointer;
@@ -25,7 +25,9 @@
 }
 
 .card:focus-visible {
-  box-shadow: 0 0 0 2px rgba(255, 200, 80, 0.45), 0 0 22px rgba(120, 200, 255, 0.15);
+  box-shadow:
+    0 0 0 2px var(--hud-amber-a45-glow),
+    0 0 22px var(--hud-cyan-15);
 }
 
 /* Hover gradient wash — understated space palette */
@@ -38,13 +40,7 @@
   pointer-events: none;
 
   opacity: 0;
-  background: linear-gradient(
-    128deg,
-    rgba(25, 20, 60, 0.55) 0%,
-    rgba(15, 45, 90, 0.5) 35%,
-    rgba(255, 180, 60, 0.22) 68%,
-    rgba(180, 120, 40, 0.12) 100%
-  );
+  background: var(--grad-card-hover-wash);
   background-size: 280% 280%;
   background-position: 12% 20%;
   transition: opacity 0.42s ease, background-position 0.45s ease, transform 0.45s ease;
@@ -67,16 +63,13 @@
   /* Let nested flex/grid respect card width instead of intrinsic min-width blowout */
   min-width: 0;
 
-  padding: clamp(0.75rem, 2vw, 1rem) clamp(0.65rem, 1.5vw, 0.85rem);
+  padding: clamp(0.45rem, 1.2vw, 0.62rem) clamp(0.5rem, 1.2vw, 0.7rem);
 
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  background-image: radial-gradient(
-    rgba(255, 210, 100, 0.09) 1.25px,
-    transparent 1.35px
-  );
+  background-image: var(--grad-card-dot-mesh);
   background-size: clamp(18px, 3.5vmin, 24px) clamp(18px, 3.5vmin, 24px);
   background-position: calc(var(--dot-parallax-x)) calc(var(--dot-parallax-y));
   transition: background-position 240ms ease;
@@ -90,18 +83,18 @@
   flex-shrink: 0;
   min-width: 0;
 
-  margin: 0 0 0.55rem;
+  margin: 0 0 0.35rem;
   padding: 0;
-  font-size: clamp(0.95rem, 1.15vw, 1.35rem);
+  font-size: clamp(0.82rem, 1vw, 1.12rem);
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #e8eeff;
+  color: var(--hud-text-strong);
   line-height: 1.2;
 }
 
 .card:hover .projName {
-  color: #fffefb;
+  color: var(--hud-text-card-title-hover);
 }
 
 .tech-used {
@@ -110,9 +103,9 @@
   max-width: 100%;
   min-width: 0;
 
-  padding: 0 0 12px;
+  padding: 0 0 6px;
   display: flex;
-  gap: 0.42rem;
+  gap: 0.3rem;
   flex-wrap: wrap;
   align-items: flex-start;
   align-content: flex-start;
@@ -130,11 +123,11 @@
   max-width: 100%;
   min-width: 0;
 
-  padding: 5px 8px;
+  padding: 3px 6px;
 
-  border: 1px solid rgba(255, 200, 80, 0.32);
-  color: rgba(200, 220, 255, 0.88);
-  background: rgba(0, 0, 0, 0.42);
+  border: 1px solid var(--hud-amber-a32);
+  color: var(--hud-tech-fg);
+  background: var(--hud-panel-42);
 
   overflow-wrap: anywhere;
   word-break: break-word;
@@ -142,9 +135,9 @@
 }
 
 .card:hover .tech {
-  border-color: rgba(255, 235, 150, 0.45);
-  color: rgba(20, 25, 40, 0.92);
-  background: rgba(255, 255, 255, 0.78);
+  border-color: var(--hud-warm-150);
+  color: var(--hud-tech-fg-hover);
+  background: var(--hud-chip-bg);
 }
 
 .tech-heading {
@@ -159,16 +152,20 @@
   margin: 0;
   padding: 0;
   min-width: 0;
-  font-size: clamp(0.68rem, 1vw, 0.82rem);
+  font-size: clamp(0.62rem, 0.92vw, 0.74rem);
   font-weight: 300;
-  line-height: 1.55;
+  line-height: 1.45;
   letter-spacing: 0.04em;
-  color: rgba(165, 195, 230, 0.88);
+  color: var(--hud-cyan-88-chip);
   word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
 }
 
 .card:hover .proj-desc {
-  color: rgba(240, 245, 255, 0.95);
+  color: var(--hud-cyan-95-hover);
 }
 
 @media screen and (max-width: 600px) {

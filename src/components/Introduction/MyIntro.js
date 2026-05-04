@@ -28,23 +28,13 @@ function MyIntro() {
           <span className="magic-blue">Software Engineer II</span>
           <span className="role-tag">AI SYSTEMS</span>
         </div>
-        <div className="role-row past">
-          <span className="field-label">PREV ›</span>
-          <span className="role-past-value">
-            <span className="role-past">Software</span>
-            {" · "}
-            <span className="role-past">Interface</span>
-            {" · "}
-            <span className="role-past">Platform</span>
-            {" Engineer"}
-          </span>
-        </div>
       </div>
 
       <p className="myintro-text myintro-con">
         <span className="intro-comment">{"// BRIEFING  "}</span>
-        Navigates simplicity, scalability, cloud infrastructure, streamlined
-        pipelines, and agile configurations. Jack of all trades.
+        Ships semantic search, RAG-style retrieval, and agentic workflows on
+        enterprise platforms—full-stack delivery in Go, React, TypeScript,
+        and Python when the problem needs it.
       </p>
 
       <button className="fancyButton" onClick={openResumeHandler}>

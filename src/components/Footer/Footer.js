@@ -65,7 +65,7 @@ export default function Footer({ showNav }) {
   return (
     <footer className="footer">
       <div className="footer-shell">
-        <p className="footer-tagline">COMMS RELAY · IDLE</p>
+        <p className="footer-tagline">COMMS RELAY · ACTIVE</p>
 
         {!showNav && (
           <nav className="footer-nav-strip" aria-label="Page sections">

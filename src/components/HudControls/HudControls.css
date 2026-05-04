@@ -26,7 +26,7 @@
 }
 
 .hud-controls-sep {
-  color: rgba(120, 180, 255, 0.22);
+  color: var(--hud-ctrl-sep);
   user-select: none;
   padding: 0 0.42em;
   font-weight: 300;
@@ -53,32 +53,32 @@
   letter-spacing: inherit;
   text-transform: inherit;
 
-  color: rgba(120, 180, 255, 0.45);
+  color: var(--hud-ctrl-idle);
   opacity: 0.92;
 
   transition: color 0.15s ease, opacity 0.15s ease;
 }
 
 .hud-ctrl-btn:hover {
-  color: rgba(160, 205, 255, 0.72);
+  color: var(--hud-ctrl-hover);
   opacity: 1;
 }
 
 .hud-ctrl-btn:focus-visible {
   outline: none;
-  color: rgba(190, 220, 255, 0.88);
+  color: var(--hud-ctrl-focus-text);
   text-decoration: underline;
-  text-decoration-color: rgba(255, 200, 90, 0.35);
+  text-decoration-color: var(--hud-ctrl-underline);
   text-underline-offset: 3px;
 }
 
 .hud-ctrl-btn.is-on {
-  color: rgba(255, 200, 60, 0.52);
+  color: var(--hud-gold-052);
   opacity: 1;
 }
 
 .hud-ctrl-btn.is-on:hover {
-  color: rgba(255, 215, 100, 0.68);
+  color: var(--hud-gold-068);
 }
 
 /* Starfield scroll depth — 3-cycle: full / reduced / off */
@@ -87,38 +87,38 @@
 }
 
 .hud-ctrl-btn.hud-ctrl-btn--parallax-active {
-  color: rgba(255, 210, 118, 0.9);
+  color: var(--hud-amber-a69);
 }
 
 .hud-ctrl-btn.hud-ctrl-btn--parallax-active:hover {
-  color: rgba(255, 225, 150, 0.98);
+  color: var(--hud-warm-165);
 }
 
 .hud-ctrl-btn.hud-ctrl-btn--parallax-reduced {
-  color: rgba(110, 230, 170, 0.82);
+  color: var(--hud-mint-38);
 }
 
 .hud-ctrl-btn.hud-ctrl-btn--parallax-reduced:hover {
-  color: rgba(145, 245, 195, 0.95);
+  color: var(--hud-mint-76);
 }
 
 .hud-ctrl-btn.hud-ctrl-btn--parallax-disabled {
-  color: rgba(120, 165, 210, 0.38);
+  color: var(--hud-parallax-warm-low);
   opacity: 0.85;
 }
 
 .hud-ctrl-btn.hud-ctrl-btn--parallax-disabled:hover {
-  color: rgba(150, 190, 230, 0.55);
+  color: var(--hud-mint-55);
   opacity: 1;
 }
 
 .hud-ctrl-btn--notice {
-  color: rgba(255, 190, 80, 0.48);
+  color: var(--hud-amber-a48);
   opacity: 0.95;
 }
 
 .hud-ctrl-btn--notice:hover {
-  color: rgba(255, 210, 120, 0.65);
+  color: var(--hud-warm-118);
   opacity: 1;
 }
 
@@ -163,7 +163,7 @@
   justify-content: center;
   padding: clamp(16px, 4vw, 32px);
 
-  background: rgba(2, 4, 10, 0.78);
+  background: var(--hud-deep-720);
   backdrop-filter: blur(8px);
   pointer-events: auto;
 }
@@ -174,12 +174,12 @@
   padding: 1.25rem 1.35rem;
 
   border-radius: 4px;
-  border: 1px solid rgba(255, 200, 90, 0.28);
-  background: rgba(6, 10, 18, 0.95);
+  border: 1px solid var(--hud-disclaimer-border);
+  background: var(--hud-deep-panel);
   box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.65) inset,
-    0 12px 48px rgba(0, 0, 0, 0.6),
-    0 0 40px rgba(120, 200, 255, 0.08);
+    0 0 0 1px var(--hud-black-inset-65) inset,
+    0 12px 48px var(--hud-shadow-deep-60),
+    0 0 40px var(--hud-cyan-08);
 }
 
 .hud-disclaimer-title {
@@ -189,14 +189,14 @@
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255, 200, 80, 0.88);
+  color: var(--hud-gold-088-hud);
 }
 
 .hud-disclaimer-body {
   margin: 0 0 0.65rem;
   font-size: 0.78rem;
   line-height: 1.55;
-  color: rgba(200, 215, 235, 0.82);
+  color: var(--hud-subtitle-body);
 }
 
 .hud-disclaimer-body:last-of-type {
@@ -216,22 +216,22 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
 
-  color: rgba(255, 220, 130, 0.95);
-  background: rgba(255, 200, 80, 0.1);
-  border: 1px solid rgba(255, 200, 90, 0.35);
+  color: var(--hud-disclaimer-btn-fg);
+  background: var(--hud-disclaimer-btn-bg);
+  border: 1px solid var(--hud-disclaimer-btn-border);
   border-radius: 2px;
 
   transition: background 0.15s ease, border-color 0.15s ease;
 }
 
 .hud-disclaimer-dismiss:hover {
-  background: rgba(255, 200, 80, 0.16);
-  border-color: rgba(255, 200, 100, 0.5);
+  background: var(--hud-disclaimer-btn-hover-bg);
+  border-color: var(--hud-disclaimer-btn-hover-border);
 }
 
 .hud-disclaimer-dismiss:focus-visible {
   outline: none;
   box-shadow:
-    0 0 0 2px rgba(255, 200, 80, 0.45),
-    0 0 18px rgba(120, 200, 255, 0.15);
+    0 0 0 2px var(--hud-amber-a43),
+    0 0 18px var(--hud-cyan-15);
 }

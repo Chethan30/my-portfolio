@@ -8,7 +8,6 @@ import Starfield from "./components/Introduction/Starfield";
 import HudControls from "./components/HudControls/HudControls";
 import bgMusicLoop from "./assets/secret_bg_1.mp3";
 import hoverMenuSfx from "./assets/secret_hover_score_1.wav";
-import Work from "./pages/Work/Work";
 import { projects } from "./store/Store";
 // import About from "./components/About/About";
 import SkillSection from "./components/Card/SkillSection";
@@ -22,8 +21,6 @@ import {
 const STARFIELD_PARALLAX_MODES = ["active", "reduced", "disabled"];
 
 function App() {
-  const [pageActive, setPageActve] = useState(false);
-  const [activeProj, setActiveProj] = useState({});
   const [musicOn, setMusicOn] = useState(true);
   const [sfxOn, setSfxOn] = useState(true);
   const [starfieldParallax, setStarfieldParallax] = useState(() => {
@@ -105,10 +102,9 @@ function App() {
         trailer.classList.remove("growmore");
       });
     });
-  }, [pageActive]);
+  }, []);
 
   useEffect(() => {
-    if (pageActive) return;
     const el = musicRef.current;
     if (!el) return;
     el.volume = 0.28;
@@ -118,10 +114,10 @@ function App() {
     } else {
       el.pause();
     }
-  }, [musicOn, pageActive]);
+  }, [musicOn]);
 
   useEffect(() => {
-    if (pageActive || !musicOn) return undefined;
+    if (!musicOn) return undefined;
     const unlock = () => {
       musicRef.current?.play().catch(() => {});
     };
@@ -130,10 +126,10 @@ function App() {
       once: true,
     });
     return () => window.removeEventListener("pointerdown", unlock);
-  }, [pageActive, musicOn]);
+  }, [musicOn]);
 
   useEffect(() => {
-    if (pageActive || !sfxOn) return undefined;
+    if (!sfxOn) return undefined;
 
     const playHover = () => {
       const a = hoverSfxRef.current;
@@ -163,7 +159,7 @@ function App() {
         el.removeEventListener("mouseenter", playHover);
       });
     };
-  }, [pageActive, sfxOn]);
+  }, [sfxOn]);
 
   useEffect(() => {
     try {
@@ -174,11 +170,10 @@ function App() {
   }, [starfieldParallax]);
 
   useEffect(() => {
-    return attachHudAnchorScroll(() => !pageActive);
-  }, [pageActive]);
+    return attachHudAnchorScroll(() => true);
+  }, []);
 
   useEffect(() => {
-    if (pageActive) return;
     const hashId = decodeURIComponent(window.location.hash.slice(1));
     if (!hashId) return;
 
@@ -193,7 +188,7 @@ function App() {
     return () => {
       alive = false;
     };
-  }, [pageActive]);
+  }, []);
 
   const missionHudHead = (
     <>
@@ -205,40 +200,32 @@ function App() {
   return (
     <div className="App">
       <Starfield parallaxMode={starfieldParallax} />
-      {pageActive ? (
-        <div className="hud-corner hud-tl">{missionHudHead}</div>
-      ) : (
-        <div className="hud-mission-row">
-          <div className="hud-mission-left">{missionHudHead}</div>
-          <HudControls
-            musicOn={musicOn}
-            onMusicToggle={() => setMusicOn((v) => !v)}
-            sfxOn={sfxOn}
-            onSfxToggle={() => setSfxOn((v) => !v)}
-            parallaxMode={starfieldParallax}
-            onParallaxCycle={() =>
-              setStarfieldParallax((prev) => {
-                const i = STARFIELD_PARALLAX_MODES.indexOf(prev);
-                return STARFIELD_PARALLAX_MODES[
-                  ((i >= 0 ? i : 0) + 1) % STARFIELD_PARALLAX_MODES.length
-                ];
-              })
-            }
-            navVisible={navDockVisible}
-            onNavToggle={() => setNavDockVisible((v) => !v)}
-          />
-        </div>
-      )}
+      <div className="hud-mission-row">
+        <div className="hud-mission-left">{missionHudHead}</div>
+        <HudControls
+          musicOn={musicOn}
+          onMusicToggle={() => setMusicOn((v) => !v)}
+          sfxOn={sfxOn}
+          onSfxToggle={() => setSfxOn((v) => !v)}
+          parallaxMode={starfieldParallax}
+          onParallaxCycle={() =>
+            setStarfieldParallax((prev) => {
+              const i = STARFIELD_PARALLAX_MODES.indexOf(prev);
+              return STARFIELD_PARALLAX_MODES[
+                ((i >= 0 ? i : 0) + 1) % STARFIELD_PARALLAX_MODES.length
+              ];
+            })
+          }
+          navVisible={navDockVisible}
+          onNavToggle={() => setNavDockVisible((v) => !v)}
+        />
+      </div>
       <div className="hud-corner hud-br">
         <span className="hud-label">SECTOR: ENGINEERING</span>
         <span className="hud-coords">CLEARANCE: FULL ACCESS</span>
       </div>
-      <Navbar
-        showLinks={pageActive}
-        dockVisible={navDockVisible}
-      />
-      {!pageActive && (
-        <div className="appContainer">
+      <Navbar showLinks={false} dockVisible={navDockVisible} />
+      <div className="appContainer">
           <audio
             ref={musicRef}
             className="hud-audio hud-audio--music"
@@ -296,12 +283,12 @@ function App() {
                         className="card-ele"
                         key={project.key ?? index}
                         itemId={project.key}
+                        period={project.period}
                         title={project.title}
                         desc={project.minidesc}
+                        details={project.description}
+                        highlights={project.highlights}
                         techStack={project.tech}
-                        projectInfo={project}
-                        openPage={setPageActve}
-                        setActiveProj={setActiveProj}
                       />
                     );
                   })}
@@ -346,21 +333,11 @@ function App() {
               </div>
             </div>
           </div>
-        </div>
-      )}
-
-      {pageActive && (
-        <Work
-          title={"Page Title"}
-          key={0}
-          openPage={setPageActve}
-          activeProj={activeProj}
-        />
-      )}
+      </div>
 
       {/* <---------- Footer -----------> */}
       <div className="footer-holder">
-        <Footer showNav={pageActive} />
+        <Footer showNav={false} />
       </div>
       <div className="cursor">
         <i className="cursor-icon">🚀</i>

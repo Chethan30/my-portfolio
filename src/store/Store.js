@@ -10,7 +10,56 @@ import dw3 from "../assets/dw_3.png";
 export const projects = [
   {
     key: 0,
+    title: "Pantry",
+    period: "Mar 2026",
+    description:
+      "Conversational agentic kitchen assistant that parses language inputs into automated inventory updates and dynamic, context-aware meal recommendations. Built on a local-first SQLite backend with cron scheduling that dynamically sets expiration and meal reminders.",
+    minidesc:
+      "Conversational agentic kitchen assistant for inventory and meal automation.",
+    highlights: [
+      "Parses natural language into automated pantry inventory updates",
+      "Generates context-aware meal recommendations from available ingredients",
+      "Local-first SQLite backend with dynamic expiration and meal reminder scheduling",
+    ],
+    tech: [
+      "TypeScript",
+      "Node.js",
+      "AI/LLM APIs",
+      "SQLite",
+      "Cron Scheduling",
+      "Docker",
+      "Jest",
+      "Telegram/CLI",
+    ],
+  },
+  {
+    key: 1,
+    title: "SageRouter",
+    period: "Nov 2025",
+    description:
+      "Policy-driven, model-agnostic LLM router for scalable and cost-efficient AI inference. Supports dynamic routing across OSS and proprietary models to reduce vendor lock-in and optimize cost-latency tradeoffs.",
+    minidesc:
+      "Policy-driven, model-agnostic LLM routing for cost-latency optimized inference.",
+    highlights: [
+      "Dynamic routing across OSS and proprietary models to reduce vendor lock-in",
+      "Policy-as-code YAML framework for model selection, retries, and guardrails",
+      "Circuit breakers and fallback strategies for resilient inference traffic",
+    ],
+    tech: [
+      "Java",
+      "LLMs",
+      "Ollama",
+      "PostgreSQL",
+      "Redis",
+      "Docker",
+      "YAML",
+      "Prometheus/Grafana",
+    ],
+  },
+  {
+    key: 2,
     title: "Dwelio",
+    period: "Mar 2024",
     description:
       "A web application that allows users to search for apartments in the Dallas area. Users can filter by price, number of bedrooms, and number of bathrooms. Users can also save apartments to their favorites list and view them later.",
     minidesc:
@@ -20,8 +69,9 @@ export const projects = [
     // links: ["link1", "link2"],
   },
   {
-    key: 1,
+    key: 3,
     title: "Great VR Cook Off",
+    period: "Apr 2024",
     description:
       "A virtual reality multiplayer game where the player is a chef in a kitchen. The player must cook and serve food in a timely manner by adhereing to the provided recipie. Play this game along with your friends to see who is the best chef!",
     minidesc: "A virtual reality multiplayer cook off game in a kitchen.",
@@ -30,8 +80,9 @@ export const projects = [
     //links: ["link1", "link2"],
   },
   {
-    key: 2,
+    key: 4,
     title: "Placement Portal",
+    period: "Mar 2022",
     description:
       "A web applicaton designed to help scores of students to get hired by tech companies. The portal is a one stop solution, allowing students to register and apply for jobs, and departments to keep track of validated and up to date applications.",
     minidesc:
@@ -40,32 +91,14 @@ export const projects = [
     tech: ["ReactJS", "Flask", "HTML", "Python", "CSS", "PostgreSQL"],
     //links: ["link1", "link2"],
   },
+  {
+    key: 5,
+    title: "Secure Parkk",
+    period: "Nov 2021",
+    description:
+      "Full-stack application that tracks user parking using RF technology. Users register vehicles, reserve designated spots, pay for sessions, and review parking history from a single portal.",
+    minidesc:
+      "RF-based parking tracking with payments, reservations, and history.",
+    tech: ["React", "Python", "PostgreSQL", "REST", "HTML", "CSS"],
+  },
 ];
-
-// {
-//   key: 3,
-//   title: "Project Title 3",
-//   description: "desc",
-//   minidesc: "dsfdsfsdg erer ert",
-//   pictures: ["link1", "link2"],
-//   tech: ["react", "python", "css"],
-//   links: ["link1", "link2"],
-// },
-// {
-//   key: 4,
-//   title: "Secure Parkk",
-//   description: "A full stack application that tracks user parkng using RF technology. The application allows users to register their vehicles and park in a designated parking spot. The application also allows users to pay for parking and track their parking history.",
-//   minidesc: "Secure Parkk is a full stack application that tracks user parking using RF technology.",
-//   pictures: ["link1", "link2"],
-//   tech: ["react", "python", "html"],
-//   links: ["link1", "link2"],
-// },
-// {
-//   key: 5,
-//   title: "Project Title 5",
-//   description: "desc",
-//   minidesc: "dsfdsfsdg erefr erwer ",
-//   pictures: ["link1", "link2"],
-//   tech: ["react", "python", "html"],
-//   links: ["link1", "link2"],
-// },

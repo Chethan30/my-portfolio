@@ -24,6 +24,11 @@
   outline: none;
 }
 
+.card.is-expanded {
+  aspect-ratio: auto;
+  min-height: 240px;
+}
+
 .card:focus-visible {
   box-shadow:
     0 0 0 2px var(--hud-amber-a45-glow),
@@ -75,6 +80,13 @@
   transition: background-position 240ms ease;
 }
 
+.card.is-expanded .card-content {
+  position: relative;
+  inset: auto;
+  height: auto;
+  min-height: 100%;
+}
+
 .card:hover > .card-content {
   background-position: calc(-12% + var(--dot-parallax-x)) calc(-14% + var(--dot-parallax-y));
 }
@@ -91,6 +103,15 @@
   text-transform: uppercase;
   color: var(--hud-text-strong);
   line-height: 1.2;
+}
+
+.proj-period {
+  margin: 0 0 0.3rem;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--hud-gold-072-heading);
 }
 
 .card:hover .projName {
@@ -161,11 +182,70 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   overflow: hidden;
 }
 
 .card:hover .proj-desc {
   color: var(--hud-cyan-95-hover);
+}
+
+.proj-expand-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.4rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid var(--hud-amber-a12);
+}
+
+.proj-expand-label {
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--hud-amber-a55);
+}
+
+.proj-expand-chevron {
+  font-size: 0.64rem;
+  color: var(--hud-amber-a70);
+  transition: transform 200ms ease;
+}
+
+.proj-expand-chevron--open {
+  transform: rotate(180deg);
+}
+
+.proj-details-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 240ms ease;
+}
+
+.proj-details-panel--open {
+  max-height: 600px;
+}
+
+.proj-details-summary {
+  margin: 0.7rem 0 0.55rem;
+  font-size: 0.74rem;
+  line-height: 1.5;
+  letter-spacing: 0.03em;
+  color: var(--hud-cyan-88-chip);
+}
+
+.proj-details-bullets {
+  margin: 0 0 0.2rem;
+  padding: 0 0 0 1rem;
+  color: var(--hud-cyan-95-hover);
+}
+
+.proj-details-bullets li {
+  font-size: 0.7rem;
+  line-height: 1.45;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.35rem;
 }
 
 @media screen and (max-width: 600px) {

@@ -1,15 +1,392 @@
 @import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
+/* ─── Global HUD / space palette — reuse via var(...) everywhere ─── */
+:root {
+  --hud-scroll-clearance: clamp(52px, 9vh, 84px);
+
+  /* Base */
+  --hud-bg: #000000;
+  --hud-fg: #ffffff;
+
+  /* Text */
+  --hud-text-strong: #e8eeff;
+  --hud-text-mid: #ddeeff;
+  --hud-text-soft: #cddaf5;
+  --hud-text-muted: #9ab2cc;
+  --hud-text-muted-2: #a8bfdf;
+  --hud-text-label: #7a9dbf;
+  --hud-text-label-2: #6e90b0;
+  --hud-link-underline: #fffd8d;
+  --hud-cursor-glow: rgba(255, 253, 162, 0.8);
+
+  /* Card / chip text */
+  --hud-text-card-title-hover: #fffefb;
+  --hud-tech-fg: rgba(200, 220, 255, 0.88);
+  --hud-tech-fg-hover: rgba(20, 25, 40, 0.92);
+
+  /* Cyan telemetry */
+  --hud-cyan-06: rgba(120, 200, 255, 0.06);
+  --hud-cyan-08: rgba(120, 200, 255, 0.08);
+  --hud-cyan-12: rgba(120, 200, 255, 0.12);
+  --hud-cyan-15: rgba(120, 200, 255, 0.15);
+  --hud-cyan-20: rgba(120, 200, 255, 0.2);
+  --hud-cyan-22-bridge: rgba(120, 180, 255, 0.22);
+  --hud-cyan-35: rgba(120, 200, 255, 0.35);
+  --hud-cyan-45: rgba(120, 180, 255, 0.45);
+  --hud-cyan-55: rgba(120, 180, 255, 0.55);
+  --hud-cyan-68: rgba(140, 195, 255, 0.68);
+  --hud-cyan-72-mid: rgba(160, 205, 255, 0.72);
+  --hud-cyan-75-muted: rgba(140, 175, 220, 0.75);
+  --hud-cyan-82-mist: rgba(170, 200, 235, 0.88);
+  --hud-cyan-82-body: rgba(185, 210, 240, 0.88);
+  --hud-cyan-84-footer: rgba(160, 210, 255, 0.84);
+  --hud-cyan-85-bullet: rgba(155, 185, 220, 0.85);
+  --hud-cyan-88-preview: rgba(155, 185, 220, 0.78);
+  --hud-cyan-88-chip: rgba(165, 195, 230, 0.88);
+  --hud-cyan-95-hover: rgba(240, 245, 255, 0.95);
+  --hud-coords: rgba(120, 180, 255, 0.45);
+  --hud-spine-blue: rgba(120, 180, 255, 0.2);
+
+  /* Gold / amber accent (255, 200 ~ 215) */
+  --hud-gold-052: rgba(255, 200, 60, 0.52);
+  --hud-gold-068: rgba(255, 215, 100, 0.68);
+  --hud-gold-072-heading: rgba(255, 200, 60, 0.72);
+  --hud-gold-088-hud: rgba(255, 200, 80, 0.88);
+  --hud-gold-092-role: rgba(255, 205, 60, 0.92);
+
+  --hud-amber-a08: rgba(255, 200, 80, 0.08);
+  --hud-amber-a10: rgba(255, 200, 80, 0.1);
+  --hud-amber-a12: rgba(255, 200, 80, 0.12);
+  --hud-amber-a15: rgba(255, 200, 90, 0.15);
+  --hud-amber-a16: rgba(255, 200, 80, 0.16);
+  --hud-amber-a17: rgba(255, 200, 80, 0.18);
+  --hud-card-border: rgba(255, 200, 80, 0.18);
+  --hud-amber-a22: rgba(255, 200, 80, 0.22);
+  --hud-amber-a25: rgba(255, 200, 90, 0.25);
+  --hud-amber-a28: rgba(255, 200, 90, 0.28);
+  --hud-amber-a28b: rgba(255, 200, 80, 0.28);
+  --hud-amber-a30: rgba(255, 200, 80, 0.3);
+  --hud-amber-a31: rgba(255, 200, 90, 0.31);
+  --hud-amber-a32: rgba(255, 200, 80, 0.32);
+  --hud-amber-a35: rgba(255, 200, 80, 0.35);
+  --hud-amber-a38: rgba(255, 200, 80, 0.38);
+  --hud-amber-a40: rgba(255, 200, 60, 0.4);
+  --hud-amber-a43: rgba(255, 200, 80, 0.43);
+  --hud-amber-a45-glow: rgba(255, 200, 80, 0.45);
+  --hud-amber-a45-border: rgba(255, 210, 80, 0.45);
+  --hud-amber-a48: rgba(255, 190, 80, 0.48);
+  --hud-amber-a50: rgba(255, 200, 80, 0.5);
+  --hud-amber-a54: rgba(255, 200, 90, 0.54);
+  --hud-amber-a55-corner: rgba(255, 200, 60, 0.55);
+  --hud-amber-a55: rgba(255, 200, 120, 0.55);
+  --hud-amber-a61: rgba(255, 220, 100, 0.61);
+  --hud-amber-a65: rgba(255, 200, 80, 0.65);
+  --hud-amber-a65-strong: rgba(255, 200, 120, 0.65);
+  --hud-amber-a69: rgba(255, 210, 118, 0.9);
+  --hud-amber-a655: rgba(255, 200, 110, 0.65);
+  --hud-amber-a70: rgba(255, 200, 80, 0.7);
+  --hud-amber-a685: rgba(255, 210, 80, 0.685);
+  --hud-amber-a706: rgba(255, 210, 70, 0.706);
+  --hud-amber-a70-scan: rgba(255, 210, 70, 0.07);
+  --hud-amber-a72: rgba(255, 200, 60, 0.72);
+  --hud-amber-a758: rgba(255, 210, 70, 0.758);
+  --hud-amber-a758-hi: rgba(255, 230, 80, 0.758);
+
+  --hud-gold-soft-55: rgba(255, 200, 95, 0.72);
+  --hud-gold-bright-88: rgba(255, 215, 110, 0.88);
+
+  --hud-warm-140: rgba(255, 230, 140, 0.95);
+  --hud-warm-150: rgba(255, 235, 150, 0.45);
+  --hud-warm-165: rgba(255, 230, 165, 0.98);
+  --hud-warm-118: rgba(255, 210, 120, 0.65);
+
+  --hud-btn-hover-fg: #fff9a0;
+  --hud-btn-hover-glow: rgba(255, 230, 80, 0.6);
+  --hud-bracket-accent: rgba(255, 230, 80, 1);
+  --hud-btn-fg: #d4e8ff;
+
+  --hud-glow-028: rgba(255, 200, 60, 0.08);
+  --hud-glow-082: rgba(255, 200, 60, 0.082);
+  --hud-icon-gold-50: rgba(255, 200, 80, 0.5);
+  --hud-timeline-icon-glow: rgba(255, 200, 80, 0.35);
+  --hud-timeline-icon-shadow: rgba(255, 200, 60, 0.12);
+  --hud-timeline-hover-glow: rgba(255, 200, 60, 0.2);
+  --hud-glow-100: rgba(255, 200, 60, 0.1);
+  --hud-glow-120: rgba(255, 200, 90, 0.12);
+  --hud-glow-200: rgba(255, 200, 60, 0.2);
+  --hud-glow-250: rgba(255, 200, 80, 0.25);
+  --hud-glow-dropshadow: rgba(255, 200, 60, 0.45);
+
+  --hud-icon-hot: rgba(255, 230, 120, 1);
+
+  --hud-cmt-gold: rgba(255, 210, 80, 0.7);
+
+  /* Magic text gradients */
+  --grad-text-magic-gold: linear-gradient(
+    to right,
+    #ff930f,
+    #fff95b,
+    #fffc9f,
+    #ff930f
+  );
+  --grad-text-magic-blue: linear-gradient(
+    to right,
+    #3d9bff,
+    #7fd4ff,
+    #b8f0ff,
+    #3d9bff
+  );
+  --shadow-magic-blue: rgba(100, 200, 255, 0.4);
+
+  /* Status / telemetry green */
+  --hud-status-30: rgba(80, 255, 130, 0.3);
+  --hud-status-35: rgba(80, 220, 120, 0.32);
+  --hud-status-50-ring: rgba(80, 255, 130, 0.5);
+  --hud-status-55-faint: rgba(80, 220, 120, 0.55);
+  --hud-status-70-text: rgba(80, 220, 120, 0.7);
+  --hud-status-78-label: rgba(80, 220, 120, 0.78);
+  --hud-status-80-pin: rgba(100, 255, 150, 0.88);
+  --hud-status-85-time: rgba(90, 235, 140, 0.85);
+  --hud-status-92-tplus: rgba(120, 255, 165, 0.92);
+  --hud-status-95-clock: rgba(145, 255, 175, 0.95);
+  --hud-status-95-dot: rgba(80, 255, 130, 0.95);
+
+  --hud-mint-38: rgba(110, 230, 170, 0.82);
+  --hud-mint-55: rgba(150, 190, 230, 0.55);
+  --hud-mint-76: rgba(145, 245, 195, 0.95);
+
+  /* Parallax / depth HUD buttons */
+  --hud-parallax-warm-low: rgba(120, 165, 210, 0.38);
+
+  --hud-muted-footer: rgba(145, 195, 250, 0.52);
+  --hud-nav-sep-muted: rgba(140, 195, 255, 0.38);
+
+  /* HUD controls / disclaimer */
+  --hud-ctrl-sep: rgba(120, 180, 255, 0.22);
+  --hud-ctrl-idle: rgba(120, 180, 255, 0.45);
+  --hud-ctrl-hover: rgba(160, 205, 255, 0.72);
+  --hud-ctrl-focus-text: rgba(190, 220, 255, 0.88);
+  --hud-ctrl-underline: rgba(255, 200, 90, 0.35);
+
+  --hud-disclaimer-border: rgba(255, 200, 90, 0.28);
+  --hud-black-inset-65: rgba(0, 0, 0, 0.65);
+  --hud-shadow-deep-60: rgba(0, 0, 0, 0.6);
+  --hud-disclaimer-btn-fg: rgba(255, 220, 130, 0.95);
+  --hud-disclaimer-btn-bg: rgba(255, 200, 80, 0.1);
+  --hud-disclaimer-btn-border: rgba(255, 200, 90, 0.35);
+  --hud-disclaimer-btn-hover-bg: rgba(255, 200, 80, 0.16);
+  --hud-disclaimer-btn-hover-border: rgba(255, 200, 100, 0.5);
+
+  --hud-dock-inset: rgba(0, 0, 0, 0.55);
+  --hud-dock-hover-wash: rgba(120, 200, 255, 0.06);
+  --hud-dock-hover-fg: rgba(160, 210, 255, 0.85);
+  --hud-dock-active-fg: rgba(255, 220, 120, 0.88);
+
+  /* Footer heart */
+  --hud-heart-glow: rgba(255, 200, 105, 0.5);
+  --hud-underline-gold-soft: rgba(255, 200, 100, 0.55);
+  --footer-social-drop-1: rgba(255, 200, 100, 0.45);
+  --footer-social-drop-2: rgba(120, 200, 255, 0.25);
+  --footer-loc-pin-glow: rgba(80, 255, 130, 0.45);
+  --footer-loc-fixed-glow: rgba(80, 255, 130, 0.5);
+
+  --hud-gray-dim: rgba(128, 128, 128, 0.244);
+
+  --hud-skill-fg-90: rgba(200, 220, 255, 0.9);
+  --hud-skill-underlay: rgba(0, 0, 0, 0.25);
+  --hud-skill-icon: rgba(255, 200, 90, 0.75);
+  --hud-skill-chip-hover-border: rgba(255, 220, 100, 0.5);
+
+  /* Deep space overlays */
+  --hud-deep-720: rgba(2, 4, 10, 0.78);
+  --hud-deep-panel: rgba(6, 10, 18, 0.95);
+  --hud-dock-bg: rgba(4, 8, 14, 0.72);
+  --hud-void-55: rgba(0, 0, 0, 0.55);
+  --hud-void-60-inset: rgba(0, 0, 0, 0.6);
+  --hud-panel-40: rgba(0, 0, 0, 0.4);
+  --hud-panel-42: rgba(0, 0, 0, 0.42);
+  --hud-panel-45: rgba(0, 0, 0, 0.45);
+  --hud-ink-overlay-92: rgba(5, 8, 16, 0.92);
+
+  --hud-chip-bg: rgba(255, 255, 255, 0.78);
+  --hud-chip-hover-bg: rgba(255, 255, 255, 0.08);
+
+  --hud-thumb-shadow-inset-cyan: rgba(120, 200, 255, 0.12);
+  --hud-thumb-shadow-inset-hover: rgba(120, 200, 255, 0.2);
+
+  /* Scrollbar chroma */
+  --hud-scroll-thumb-border: rgba(255, 200, 90, 0.28);
+  --hud-scroll-thumb-border-hover: rgba(255, 215, 110, 0.5);
+
+  --hud-thumb-glow-hover: rgba(255, 200, 90, 0.15);
+  --hud-scrollbar-track-mid: rgba(3, 6, 14, 0.97);
+  --hud-scrollbar-corner: rgba(4, 6, 12, 1);
+
+  /* Misc */
+  --hud-char-shadow: rgb(64, 79, 0);
+  --hud-subtitle-body: rgba(200, 215, 235, 0.82);
+  --hud-dismiss-hover: rgba(255, 200, 80, 0.16);
+
+  /* Named gradients */
+  --grad-scrollbar-track: linear-gradient(
+    180deg,
+    rgba(8, 12, 22, 0.99) 0%,
+    rgba(4, 6, 12, 1) 50%,
+    rgba(8, 12, 22, 0.99) 100%
+  );
+  --grad-scrollbar-thumb: linear-gradient(
+    180deg,
+    rgba(45, 58, 78, 0.95) 0%,
+    rgba(22, 32, 48, 0.98) 100%
+  );
+  --grad-timeline-spine: linear-gradient(
+    180deg,
+    rgba(255, 200, 80, 0.08) 0%,
+    rgba(255, 200, 80, 0.28) 15%,
+    rgba(120, 180, 255, 0.2) 50%,
+    rgba(255, 200, 80, 0.28) 85%,
+    rgba(255, 200, 80, 0.08) 100%
+  );
+  --grad-hud-panel-mesh: radial-gradient(rgba(255, 200, 60, 0.06) 1px, transparent 1px);
+  --grad-intro-panel-r1: radial-gradient(
+    ellipse at 70% 50%,
+    rgba(40, 30, 5, 0.45) 0%,
+    transparent 65%
+  );
+  --grad-intro-panel-r2: radial-gradient(
+    ellipse at 20% 80%,
+    rgba(10, 20, 50, 0.3) 0%,
+    transparent 60%
+  );
+  --grad-intro-panel-dots: radial-gradient(rgba(255, 200, 60, 0.07) 1px, transparent 1px);
+  --grad-section-panel-r1: radial-gradient(
+    ellipse at 20% 20%,
+    rgba(40, 30, 5, 0.35) 0%,
+    transparent 55%
+  );
+  --grad-section-panel-r2: radial-gradient(
+    ellipse at 85% 70%,
+    rgba(10, 25, 55, 0.35) 0%,
+    transparent 55%
+  );
+  --grad-card-hover-wash: linear-gradient(
+    128deg,
+    rgba(25, 20, 60, 0.55) 0%,
+    rgba(15, 45, 90, 0.5) 35%,
+    rgba(255, 180, 60, 0.22) 68%,
+    rgba(180, 120, 40, 0.12) 100%
+  );
+  --grad-card-dot-mesh: radial-gradient(
+    rgba(255, 210, 100, 0.09) 1.25px,
+    transparent 1.35px
+  );
+  --grad-fancy-scan: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 210, 70, 0.07) 50%,
+    transparent 100%
+  );
+  --grad-nav-fade: linear-gradient(
+    black 15%,
+    rgb(0, 0, 0, 0.5),
+    rgb(0, 0, 0, 0.01)
+  );
+  --grad-radar-sweep: linear-gradient(
+    to right,
+    rgba(255, 200, 60, 0.8) 0%,
+    rgba(255, 200, 60, 0.15) 65%,
+    transparent 100%
+  );
+  --grad-radar-conic: conic-gradient(
+    from -60deg,
+    transparent 0deg,
+    rgba(255, 190, 40, 0.08) 60deg,
+    transparent 60deg
+  );
+
+  /* Radar ring (255, 185, 40 + gold center) */
+  --hud-radar-ring-a28: rgba(255, 185, 40, 0.28);
+  --hud-radar-ring-a18: rgba(255, 185, 40, 0.18);
+  --hud-radar-ring-a10: rgba(255, 185, 40, 0.1);
+  --hud-radar-cross-fill: rgba(255, 185, 40, 0.1);
+  --hud-radar-tick-fill: rgba(255, 185, 40, 0.5);
+  --hud-radar-center-fill: rgba(255, 200, 60, 0.75);
+  --shadow-radar-center: 0 0 8px rgba(255, 200, 60, 0.65);
+  --grad-tick-strip: repeating-linear-gradient(
+    to right,
+    rgba(255, 200, 60, 0.4) 0px,
+    rgba(255, 200, 60, 0.4) 4px,
+    transparent 4px,
+    transparent 12px
+  );
+  --grad-skills-card-base: radial-gradient(
+      ellipse at 15% 10%,
+      rgba(40, 35, 70, 0.25) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at 90% 95%,
+      rgba(10, 35, 65, 0.2) 0%,
+      transparent 55%
+    );
+
+  /* Legacy nav (floating pill) */
+  --hud-nav-gray-text: #4b5563;
+  --hud-nav-gray-hover-bg: #f3f4f6;
+  --hud-nav-gray-active-bg: #1f2937;
+  --hud-glass-10: rgba(255, 255, 255, 0.1);
+  --hud-glass-20: rgba(255, 255, 255, 0.2);
+  --shadow-nav-float-1: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-nav-float-2: 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-nav-pill-inset: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
 body {
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "Source Code Pro", monospace !important;
-  background-color: black;
-  color: white;
+  background-color: var(--hud-bg);
+  color: var(--hud-fg);
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
+}
+
+/* ---- HUD-style scrollbars (viewport + nested overflow) ---- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--hud-scroll-thumb-border) var(--hud-scrollbar-track-mid);
+}
+
+*::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--grad-scrollbar-track);
+  border-left: 1px solid var(--hud-amber-a10);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--grad-scrollbar-thumb);
+  border: 1px solid var(--hud-scroll-thumb-border);
+  border-radius: 2px;
+  box-shadow:
+    inset 0 0 8px var(--hud-thumb-shadow-inset-cyan),
+    0 0 0 1px rgba(0, 0, 0, 0.4);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  border-color: var(--hud-scroll-thumb-border-hover);
+  box-shadow:
+    inset 0 0 10px var(--hud-thumb-shadow-inset-hover),
+    0 0 12px var(--hud-thumb-glow-hover);
+}
+
+*::-webkit-scrollbar-corner {
+  background: var(--hud-scrollbar-corner);
 }

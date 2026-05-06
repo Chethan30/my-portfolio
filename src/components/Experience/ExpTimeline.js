@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   VerticalTimeline,
   VerticalTimelineElement,
@@ -6,103 +6,135 @@ import {
 import "react-vertical-timeline-component/style.min.css";
 import "./ExpTimeline.css";
 import { GrCertificate } from "react-icons/gr";
-import { SiAwsorganizations } from "react-icons/si";
-import { MdDeveloperBoard } from "react-icons/md";
+import { SiAwsorganizations, SiReact } from "react-icons/si";
+import {
+  MdDeveloperBoard,
+  MdLocationOn,
+  MdSmartToy,
+} from "react-icons/md";
 import { CgOrganisation } from "react-icons/cg";
-import { MdLocationOn } from "react-icons/md";
-import { MdOutlineSettingsRemote } from "react-icons/md";
+import { EXPERIENCE_TIMELINE } from "../../data/experienceTimeline";
+
+const ICON_MAP = {
+  smartToy: MdSmartToy,
+  react: SiReact,
+  aws: SiAwsorganizations,
+  cert: GrCertificate,
+  board: MdDeveloperBoard,
+};
 
 const ExpTimeline = () => {
-  const iconStyle = { background: "#000", color: "#fff" };
-  const cardContentCtyle = {
-    background: "#000",
-    color: "#fff",
-    border: "2px solid rgba(128, 128, 128, 0.454)",
+  const [expandedId, setExpandedId] = useState(null);
+
+  const iconStyle = {
+    background: "rgba(0, 0, 0, 0.88)",
+    color: "rgba(255, 200, 80, 0.95)",
+    boxShadow: "0 0 0 1px rgba(255, 200, 80, 0.35)",
+    border: "none",
+  };
+  const cardContentStyle = {
+    background: "rgba(0, 0, 0, 0.45)",
+    color: "#e8eeff",
+    border: "1px solid rgba(255, 200, 80, 0.22)",
     boxShadow: "none",
+    backdropFilter: "blur(6px)",
   };
   const cardArrowStyle = {
-    borderRight: "7px solid rgba(128, 128, 128, 0.454)",
+    borderRight: "7px solid rgba(255, 200, 80, 0.22)",
+  };
+
+  const toggle = (id) => {
+    setExpandedId((cur) => (cur === id ? null : id));
   };
 
   return (
-    <div>
+    <div className="exp-timeline-root">
       <VerticalTimeline>
-        <VerticalTimelineElement
-          className="vertical-timeline-element--work test"
-          contentStyle={cardContentCtyle}
-          contentArrowStyle={cardArrowStyle}
-          date="May 2023 - Jan 2024"
-          dateClassName="what is this"
-          iconStyle={iconStyle}
-          icon={<SiAwsorganizations />}
-        >
-          <h3 className="vertical-timeline-element-title">Sofwatre Engineer</h3>
-          <h4 className="vertical-timeline-element-subtitle">
-            <CgOrganisation className="content-icon" /> Veryable Inc{" "}
-            <MdLocationOn className="content-icon" /> Dallas, TX
-          </h4>
-          <p>
-            Typescript, Python, AWS, Lambda, Docker, Kubernetes, Terraform,
-            Circle CI, Automation
-          </p>
-        </VerticalTimelineElement>
-        <VerticalTimelineElement
-          className="vertical-timeline-element--work"
-          contentStyle={cardContentCtyle}
-          contentArrowStyle={cardArrowStyle}
-          date="Aug 2022 - May 2024"
-          iconStyle={iconStyle}
-          icon={<GrCertificate />}
-        >
-          <h3 className="vertical-timeline-element-title">
-            Masters of Science in AI/ML
-          </h3>
-          <h4 className="vertical-timeline-element-subtitle">
-            <CgOrganisation className="content-icon" />
-            University of Texas at Dallas
-          </h4>
-          <p>
-            Machine Learning, Deep Learning, LLM, Computer Vision, Natural
-            Language Processing, Data Analytics
-          </p>
-        </VerticalTimelineElement>
-        <VerticalTimelineElement
-          className="vertical-timeline-element--work"
-          contentStyle={cardContentCtyle}
-          contentArrowStyle={cardArrowStyle}
-          date="Jul 2021 - Jan 2022"
-          iconStyle={iconStyle}
-          icon={<MdDeveloperBoard />}
-        >
-          <h3 className="vertical-timeline-element-title">
-            DevSecOps Engineer
-          </h3>
-          <h4 className="vertical-timeline-element-subtitle">
-            <CgOrganisation className="content-icon" /> Brane Enterprises{" "}
-            <MdOutlineSettingsRemote className="content-icon" /> Bengaluru, IN
-          </h4>
-          <p>
-            Python Scripting, Pen Testing, Linux, Jenkins, ArgoCD, Nmap,
-            BurpSuite
-          </p>
-        </VerticalTimelineElement>
-        <VerticalTimelineElement
-          className="vertical-timeline-element--work"
-          contentStyle={cardContentCtyle}
-          contentArrowStyle={cardArrowStyle}
-          date="May 2018 - Aug 2022"
-          iconStyle={iconStyle}
-          icon={<GrCertificate />}
-        >
-          <h3 className="vertical-timeline-element-title">
-            Bachelor of Engineering in Computer Science
-          </h3>
-          <h4 className="vertical-timeline-element-subtitle">
-            <CgOrganisation className="content-icon" />
-            Dayananda Sagar College of Engineering
-          </h4>
-          <p>AI/ML, Web Engineer, Logic Design</p>
-        </VerticalTimelineElement>
+        {EXPERIENCE_TIMELINE.map((entry) => {
+          const IconComponent = ICON_MAP[entry.icon] || MdSmartToy;
+          const hasDetails = Boolean(entry.details);
+          const isOpen = expandedId === entry.id;
+          const panelId = `exp-expand-${entry.id}`;
+
+          const interactiveProps = hasDetails
+            ? {
+                className: `exp-entry exp-entry--interactive${
+                  isOpen ? " exp-entry--open" : ""
+                }`,
+                onClick: () => toggle(entry.id),
+                onKeyDown: (e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    toggle(entry.id);
+                  }
+                },
+                role: "button",
+                tabIndex: 0,
+                "aria-expanded": isOpen,
+                "aria-controls": panelId,
+                "aria-label": `${isOpen ? "Collapse" : "Expand"} details for ${entry.title}`,
+              }
+            : {
+                className: "exp-entry",
+              };
+
+          return (
+            <VerticalTimelineElement
+              key={entry.id}
+              className="vertical-timeline-element--work"
+              contentStyle={cardContentStyle}
+              contentArrowStyle={cardArrowStyle}
+              date={entry.date}
+              iconStyle={iconStyle}
+              icon={<IconComponent />}
+            >
+              <div {...interactiveProps}>
+                <h3 className="vertical-timeline-element-title">{entry.title}</h3>
+                <h4 className="vertical-timeline-element-subtitle">
+                  <CgOrganisation className="content-icon" /> {entry.org}{" "}
+                  <MdLocationOn className="content-icon" /> {entry.location}
+                </h4>
+                <p className="exp-preview">{entry.preview}</p>
+                {hasDetails && entry.details && (
+                  <>
+                    <div className="exp-expand-row" aria-hidden="true">
+                      <span className="exp-expand-label">Details</span>
+                      <span
+                        className={`exp-expand-chevron${
+                          isOpen ? " exp-expand-chevron--open" : ""
+                        }`}
+                      >
+                        ▼
+                      </span>
+                    </div>
+                    <div
+                      id={panelId}
+                      className={`exp-details-panel${
+                        isOpen ? " exp-details-panel--open" : ""
+                      }`}
+                    >
+                      <div className="exp-details-inner">
+                        {entry.details.summary ? (
+                          <p className="exp-details-summary">
+                            {entry.details.summary}
+                          </p>
+                        ) : null}
+                        {entry.details.bullets &&
+                        entry.details.bullets.length > 0 ? (
+                          <ul className="exp-details-bullets">
+                            {entry.details.bullets.map((item, idx) => (
+                              <li key={`${entry.id}-${idx}`}>{item}</li>
+                            ))}
+                          </ul>
+                        ) : null}
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            </VerticalTimelineElement>
+          );
+        })}
       </VerticalTimeline>
     </div>
   );

@@ -1,3 +1,11 @@
+#about,
+#experience,
+#projects,
+#skills {
+  scroll-margin-top: var(--hud-scroll-clearance);
+  scroll-margin-bottom: clamp(64px, 11vh, 92px);
+}
+
 .App {
   padding: 0;
   margin: 0;
@@ -14,8 +22,8 @@
 }
 
 .appContainer {
-  /* border: 2px solid red; */
-  max-width: 80%;
+  width: 100%;
+  max-width: min(1240px, 92%);
   height: 100%;
 }
 
@@ -39,7 +47,7 @@
 
 .see-more {
   background-color: transparent;
-  color: white;
+  color: var(--hud-fg);
   padding: 10px 20px;
   border: none;
   font-weight: bold;
@@ -50,43 +58,62 @@
 }
 
 .content2 {
-  margin-top: 15vh;
+  margin-top: 10vh;
   margin-bottom: 20vh;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding-inline: clamp(12px, 4vw, 32px);
 
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  /* border: 2px solid yellow; */
 }
 
 .card-container {
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   justify-content: center;
-  padding: 1rem 2rem;
-
+  padding: 0;
   margin-top: 4rem;
 }
 
 .card-grid {
-  display: inline-grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  /* row-gap: 10px;
-  column-gap: 10px; */
-  gap: 18px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: clamp(14px, 2vw, 22px);
+  width: 100%;
+  justify-items: stretch;
+  align-items: stretch;
+}
+
+@media screen and (min-width: 1025px) {
+  .projects-hud-card .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 900px) and (min-width: 601px) {
+  .projects-hud-card .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .projects-hud-card .card-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .cursor {
   width: 25px;
   height: 25px;
-  background-color: white;
+  background-color: var(--hud-fg);
 
   position: fixed;
   border-radius: 50%;
   z-index: 2000;
-  box-shadow: 0px 0px 150px 5px rgba(255, 253, 162, 0.8);
+  box-shadow: 0px 0px 150px 5px var(--hud-cursor-glow);
   transition: background 200ms, width 400ms, height 400ms;
   opacity: 1;
   pointer-events: none;
@@ -95,11 +122,11 @@
 .trailer {
   width: 10px;
   height: 10px;
-  border: 2px solid white;
+  border: 2px solid var(--hud-fg);
   position: fixed;
   border-radius: 50%;
   z-index: 1999;
-  box-shadow: 0px 0px 150px 5px rgba(255, 253, 162, 0.8);
+  box-shadow: 0px 0px 150px 5px var(--hud-cursor-glow);
   transition: width 400ms, height 400ms;
   opacity: 1;
   pointer-events: none;
@@ -125,7 +152,7 @@
   height: 2px;
   bottom: 0;
   left: 0;
-  background-color: #fffd8d;
+  background-color: var(--hud-link-underline);
   transform-origin: bottom right;
   transition: transform 300ms ease-out;
 }
@@ -165,24 +192,34 @@
 }
 
 .point {
-  width: 60px;
-  height: 60px;
+  width: 62px;
+  height: 62px;
   display: flex;
-  background-color: black;
+  background-color: var(--hud-ink-overlay-92);
   align-items: center;
   justify-content: center;
+
+  border: 1px solid var(--hud-amber-a45-glow);
+  box-shadow:
+    0 0 0 1px var(--hud-cyan-12),
+    0 0 28px var(--hud-glow-250);
 }
 
 .point > .cursor-icon {
   opacity: 1;
-  animation: spin 1.5s 1 forwards;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  filter: drop-shadow(0 0 6px var(--hud-amber-a61));
+  animation: spin 4s linear infinite;
 }
 
 @keyframes spin {
-  0% {
+  from {
     transform: rotate(0deg);
   }
-  100% {
+  to {
     transform: rotate(360deg);
   }
 }
@@ -206,30 +243,197 @@
 .skills-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 1rem 2rem;
+  align-items: center;
+  width: 100%;
+  padding: 0;
 }
 
 .skills-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+  width: 100%;
+  justify-items: center;
+}
 
-  /* align-items: center; */
-  justify-content: center;
+@media screen and (min-width: 1025px) {
+  .skills-hud-card .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .skills-hud-card .skills-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* .intro-container {
   padding: 1rem 2rem;
 } */
 .experience-container {
-  padding: 1rem 2rem;
+  padding: 0 0 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.experience-container > .heading {
-  margin-bottom: 2rem;
-  margin-top: 4rem;
-  text-align: center;
+/* HUD panel — matches intro hero surface */
+.experience-hud-card,
+.projects-hud-card,
+.skills-hud-card {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: min(1180px, 100%);
+  margin-inline: auto;
+  padding: clamp(1.25rem, 3vw, 2rem) clamp(1.25rem, 3.5vw, 2.5rem)
+    clamp(2rem, 3.5vw, 2.75rem);
+
+  border: 1px solid var(--hud-amber-a12);
+  border-radius: 4px;
+
+  background-image:
+    var(--grad-section-panel-r1),
+    var(--grad-section-panel-r2),
+    var(--grad-hud-panel-mesh);
+  background-size: auto, auto, clamp(20px, 4vw, 28px) clamp(20px, 4vw, 28px);
+  background-position: center, center, 0 0;
+}
+
+.projects-hud-card {
+  padding-bottom: clamp(2.25rem, 4vw, 3rem);
+}
+
+.skills-hud-card {
+  padding-bottom: clamp(2rem, 3.5vw, 2.5rem);
+}
+
+.experience-hud-card:hover .sec-corner,
+.projects-hud-card:hover .sec-corner,
+.skills-hud-card:hover .sec-corner {
+  width: 20px;
+  height: 20px;
+  border-color: var(--hud-gold-bright-88);
+}
+
+.experience-hud-card .experience-hud-heading,
+.projects-hud-card .experience-hud-heading,
+.skills-hud-card .experience-hud-heading {
+  margin: 0 0 1.5rem !important;
+  padding: 0 0 0.65rem 0 !important;
+  text-align: left;
+  font-size: clamp(0.62rem, 1.1vw, 0.72rem) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase;
+  color: var(--hud-gold-072-heading) !important;
+  border-bottom: 1px solid var(--hud-amber-a12);
+}
+
+.projects-see-more-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.5rem;
+  padding-top: 0.75rem;
+}
+
+/* Same HUD control as hero resume; anchor-specific layout tweaks */
+.projects-see-more-wrap .projects-see-more-link.fancyButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  text-decoration: none;
+}
+
+.projects-see-more-wrap .fancyButton:link,
+.projects-see-more-wrap .fancyButton:visited {
+  color: inherit;
+}
+
+.projects-see-more-wrap .fancyButton:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--hud-amber-a55-corner),
+    0 0 20px var(--hud-cyan-20);
+}
+
+/* ---- Global HUD corner labels ---- */
+.hud-corner {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  z-index: 999;
+  pointer-events: none;
+}
+
+.hud-tl {
+  top: 14px;
+  left: 18px;
+}
+
+/* Single top strip: left mission copy + inline telemetry controls (home only) */
+.hud-mission-row {
+  position: fixed;
+  top: 14px;
+  left: 18px;
+  right: 18px;
+  z-index: 999;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: clamp(12px, 3vw, 28px);
+
+  pointer-events: none;
+}
+
+.hud-mission-row .hud-controls-strip {
+  pointer-events: auto;
+  align-self: flex-start;
+}
+
+.hud-mission-left {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  pointer-events: none;
+  max-width: min(52vw, 24rem);
+}
+
+.hud-br {
+  bottom: 14px;
+  right: 18px;
+  align-items: flex-end;
+}
+
+.hud-audio {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.hud-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--hud-amber-a55-corner);
+  font-family: monospace;
+}
+
+.hud-coords {
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  color: var(--hud-coords);
+  font-family: monospace;
 }
 
 .footer-holder {
@@ -257,22 +461,12 @@
     max-width: 100%;
   }
 
-  .intro-container {
-    justify-content: center;
-  }
-
-  .skills-grid {
-    gap: 0.1rem;
+  .skills-hud-card .skills-grid {
+    gap: 1rem;
   }
 }
 
 @media screen and (max-width: 700px) {
-  .card-grid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: display 300ms ease-in-out;
-  }
   .appContainer {
     max-width: 100%;
   }

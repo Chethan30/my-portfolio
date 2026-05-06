@@ -1,4 +1,5 @@
 .nav-container {
+  border: "1px solid red";
   width: 100%;
   height: 10vh;
 
@@ -6,12 +7,13 @@
   align-items: center;
   justify-content: space-between;
 
-  background: linear-gradient(black 15%, rgb(0, 0, 0, 0.5), rgb(0, 0, 0, 0.01));
+  background: var(--grad-nav-fade);
   backdrop-filter: blur(12px);
   padding: 1rem;
 }
 
 .nav-logo {
+  border: "1px solid red";
   flex: 0.7;
   width: 5rem;
   padding: 0.5rem 5rem;
@@ -24,6 +26,7 @@
 }
 
 .nav-links {
+  border: "1px solid red";
   flex: 0.3;
   display: flex;
   align-items: center;
@@ -41,7 +44,7 @@
 }
 
 .sec {
-  color: white;
+  color: var(--hud-fg);
   font-size: clamp(1rem, 1.5vw, 1.5rem);
   cursor: none;
   margin: 0 1rem;
@@ -62,4 +65,159 @@
     display: none;
     margin: 0;
   }
+}
+
+.floating-nav {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--hud-glass-10);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--hud-glass-20);
+  box-shadow: var(--shadow-nav-float-1), var(--shadow-nav-float-2);
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  z-index: 50;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  transition: all 0.2s ease-in-out;
+  color: var(--hud-nav-gray-text);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.nav-button:hover {
+  background-color: var(--hud-nav-gray-hover-bg);
+}
+
+.nav-button.active {
+  background-color: var(--hud-nav-gray-active-bg);
+  color: var(--hud-fg);
+  box-shadow: var(--shadow-nav-pill-inset);
+}
+.nav-text {
+  display: none;
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .nav-list {
+    gap: 0.5rem;
+  }
+  .nav-text {
+    display: inline;
+  }
+}
+
+/* ---- HUD section dock (bottom anchor nav) ---- */
+.hud-section-dock {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+
+  padding: 0.35rem 0.6rem;
+  border-radius: 4px;
+
+  font-family: monospace;
+  letter-spacing: 0.06em;
+
+  background: var(--hud-dock-bg);
+  border: 1px solid var(--hud-amber-a22);
+  box-shadow:
+    0 0 0 1px var(--hud-dock-inset) inset,
+    0 4px 24px var(--hud-dock-inset),
+    0 0 32px var(--hud-cyan-08);
+
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease;
+}
+
+.hud-dock-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 640px) {
+  .hud-dock-list {
+    gap: 0.65rem;
+  }
+}
+
+.hud-dock-link {
+  display: block;
+  padding: 0.45rem 0.72rem;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  color: var(--hud-cyan-55);
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 2px;
+
+  transition:
+    color 0.18s ease,
+    border-color 0.18s ease,
+    background 0.18s ease;
+}
+
+.hud-dock-link:hover {
+  color: var(--hud-dock-hover-fg);
+  background: var(--hud-dock-hover-wash);
+}
+
+.hud-dock-link:focus-visible {
+  outline: none;
+  border-color: var(--hud-amber-a45-glow);
+  box-shadow:
+    0 0 0 1px var(--hud-amber-a25),
+    0 0 18px var(--hud-cyan-12);
+}
+
+.hud-dock-link.is-active {
+  color: var(--hud-dock-active-fg);
+  border-color: var(--hud-amber-a28);
+  background: var(--hud-glow-100);
+}
+
+.hud-dock-link.is-active:hover {
+  color: var(--hud-warm-165);
+}
+
+.hud-section-dock.hud-dock-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, calc(100% + 28px));
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease;
 }
